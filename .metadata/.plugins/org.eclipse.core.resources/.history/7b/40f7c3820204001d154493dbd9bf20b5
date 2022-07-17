@@ -1,0 +1,74 @@
+package com.studentcrud.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import com.studentcrud.model.Student;
+import com.studentcrud.service.StudentService;
+
+@Controller
+public class StudentController {
+
+	@Autowired
+	StudentService studentService;
+
+	@GetMapping("/register")
+	public String register() {
+		return "index";
+	}
+
+	@PostMapping("/student-details")
+	public String StudentInfo(ModelMap model, Student student) {
+		studentService.saveStudent(student);
+		model.put("errorMsg", "Registered Successfully, you can now Login !");
+		return "login";
+	}
+
+	@PostMapping("/login")
+	public String StudentLogin(ModelMap model, Student student) {
+
+		String password = studentService.getStudentPassword(student.getId());
+		String displayPassword = student.getPassword();
+
+		if (password == null) {
+			model.addAttribute("errorMsg", "User is not registered, please register");
+			return "login";
+		} else if (displayPassword.equals(password)) {
+			Student students = studentService.getById(student.getId());
+			System.out.println(student);
+			model.put("name", students.getName());
+			model.put("email", students.getEmail());
+			model.put("id", students.getId());
+			model.put("studentNo", students.getStudentNo());
+			return "login-details";
+		}
+		model.put("errorMsg", "Password is incorrect");
+		return "login";
+	}
+
+	@GetMapping("/edit-student/{id}")
+	public String editStudent(@PathVariable String id, Student student, ModelMap model) {
+
+		System.out.println(id + " hello 1");
+
+		Student s = studentService.getById(id);
+
+
+		model.put("name", s.getName());
+		model.put("id", s.getId());
+		model.put("email", s.getEmail());
+		model.put("password", s.getPassword());
+		return "edit";
+	}
+
+	@PostMapping("/student-update")
+	public String updateStudent(Student student) {
+
+		System.out.println(student + "Hello");
+		// studentService.updateStudent(student);
+		return "login";
+	}
+}

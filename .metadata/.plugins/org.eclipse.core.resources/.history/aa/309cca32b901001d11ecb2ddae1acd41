@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/views/style.css" />
+</head>
+<body>
+
+<div class="container">
+		<h2>Student Registration form</h2>
+		<div class="form-container">
+			<form method="post" id="myform" action="done" onsubmit="validateForm(event)">
+
+				<label for="name">Name</label> <span id="name-message"
+					class="error"></span> <input type="text" class="name"
+					name="name" id="name"><br> 
+					
+					<label for="id">Id</label><span id="id-message"
+					class="error"></span> <input type="text" class="name"
+					name="id" id="id"><br> 
+					
+					<label for="mail">Email Id</label><span id="email-message" class="error"></span> <input type="text"
+					class="mail" name="mail" id="mail"><br>
+					
+					<label for="password">Password</label><span id="password-message" class="error"></span><br> 
+					<input type="text" class="password" name="password" id="password"><br>
+			
+					<input type="submit"  id="button" class="button" value="Register">
+	
+			</form>
+		</div>
+	</div>
+		<div id="btn-div">
+		Already a user?
+				<a href="login.html" id="a-tag">
+					<button  id="login-btn" type="button">Login</button>
+				</a>
+			</div>
+	
+	<script src="index.js"></script>
+</body>
+</html>

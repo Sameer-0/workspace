@@ -1,0 +1,51 @@
+package com.studentcrud.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import com.studentcrud.model.Student;
+import com.studentcrud.service.StudentService;
+
+@Controller
+public class StudentController {
+
+	@Autowired
+	StudentService studentService;
+
+	@GetMapping("/register")
+	public String register() {
+		return "index";
+	}
+
+	@GetMapping("/student-details")
+	public String StudentInfo(ModelMap model ,Student student) {
+		studentService.saveStudent(student);
+		model.put("errorMsg", "Registered Successfully,you can now Login !");
+		return "login";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String StudentLogin(ModelMap model, Student student) {
+
+		String password = studentService.getStudentPassword(student.getId());
+		String displayPassword = student.getPassword();
+		
+		if(password == null) {
+			model.put("errorMsg", "User is not registered, please register");
+			return "login";
+		}
+		else if (displayPassword.equals(password)) {
+			Student s = studentService.getById(student.getId());
+			System.out.println(s);
+			model.put("name",s.getName());
+			model.put("email",s.getEmail());
+			model.put("id",s.getId());
+			return "login-details";
+		} 
+			model.put("errorMsg", "Password is incorrect");
+			return "login";
+	}
+}

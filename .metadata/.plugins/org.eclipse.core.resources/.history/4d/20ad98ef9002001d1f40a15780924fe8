@@ -1,0 +1,31 @@
+
+function validateForm(event) {
+
+	event.preventDefault();
+
+	clearError();
+
+	// Validating The First Name.........................
+	var firstName1 = firstNameValidation();
+
+	//Validating the Last Name.........................
+	var lastName1 = lastNameValidation();
+
+	//Validating the Email ID...........................
+	/*	emailIdValidation();
+	*/
+	//Validating Place.............................
+	var place1 = placeValidation();
+
+	// Validating Username....................................
+	var username1 = usernameValidation();
+
+	// Validating Password....................................
+	var password1 = passwordValidation();
+
+	if (!firstName1 || !lastName1 || !place1 || !username1 || !password1) {
+		return;
+	}
+	document.getElementById("myform").submit()
+}
+

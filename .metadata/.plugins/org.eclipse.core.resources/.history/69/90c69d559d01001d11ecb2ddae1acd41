@@ -1,0 +1,5 @@
+package com.studentcrud.service;
+
+public interface StudentService {
+
+}

@@ -1,0 +1,119 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style type="text/css">
+	* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-size: 14px;
+	background: #f2f2f2;
+}
+
+.container {
+	background: white;
+	width: 600px;
+	padding: 25px;
+	margin: 70px auto 0;
+	border-top: 7px solid orange;
+	box-shadow: 0 0 7px 5px rgba(0, 0, 0, 0.5);
+}
+
+.container h2 {
+	font-size: 24px;
+	line-height: 24px;
+	padding: 30px;
+	text-align: center;
+}
+
+.name,.id, .email, .password {
+	width: 100%;
+	position: relative;
+	margin: 10px auto;
+}
+
+.button {
+	color : white;
+	background: orange;
+	height: 35px;
+	line-height: 35px;
+	width: 100%;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	margin-top: 15px;
+}
+
+label {
+	font-size: 16px
+}
+
+.button:hover {
+	background: rgb(255, 128, 64);
+}
+
+#btn-div {
+	text-align: center;
+	margin: 30px;
+}
+
+#a-tag {
+	margin: 10px;
+}
+
+
+.error {
+  color: red;
+  font-size: small;
+  margin-left: 20px;
+}
+ .msg-error{
+ 	text-align: center;
+ 	color: red;
+ 	margin: 15px;
+ }
+	
+</style>
+</head>
+<body>
+<h2 class="msg-error">${errorMsg}</h2>
+<div class="container">
+		<h2>Student Login</h2>
+		<form id="login-form" action="/login" onsubmit="validateForm(event)" method="post">
+
+			<div class="input-name">
+				<label for="id">User Id</label> <span id="id-message"
+					class="error"></span> <br><input type="text"
+				    id="id" class="id"
+					name="id">
+			</div>
+
+			<div class="input-name">
+				<label for="password">password</label>  <span id="password-message"
+					class="error"></span> <br><input type="text"
+				    id="password" class="password"
+					name="password">
+			</div>
+
+			<div class="button1"> 
+				<input type="submit" id="button" class="button" value="Login">
+			</div>
+		</form>
+	</div>
+		<div id="btn-div">
+		Create New Account
+				<a href="/views/index.jsp" id="a-tag">
+					<button  id="login-btn" type="button">Register</button>
+				</a>
+			</div>
+	<script src="login.js"></script>
+	
+</body>
+</html>

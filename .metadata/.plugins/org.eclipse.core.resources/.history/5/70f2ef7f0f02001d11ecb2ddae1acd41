@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<h2>${errorMsg}</h2>
+<div class="container">
+		<h2>Student Login</h2>
+		<form id="login-form" action="/login" onsubmit="validateForm(event)" method="get">
+
+			<div class="input-name">
+				<label for="id">User Id</label> <span id="id-message"
+					class="error"></span> <br><input type="text"
+				    id="id" class="id"
+					name="id">
+			</div>
+
+			<div class="input-name">
+				<label for="password">password</label>  <span id="password-message"
+					class="error"></span> <br><input type="text"
+				    id="password" class="password"
+					name="password">
+			</div>
+
+			<div class="button1"> 
+				<input type="submit" id="button" class="button" value="Login">
+			</div>
+		</form>
+	</div>
+		<div id="btn-div">
+		Create New Account
+				<a href="/views/index.jsp" id="a-tag">
+					<button  id="login-btn" type="button">Register</button>
+				</a>
+			</div>
+	<script src="login.js"></script>
+	
+</body>
+</html>
