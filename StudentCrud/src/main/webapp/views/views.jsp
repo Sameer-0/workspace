@@ -11,24 +11,20 @@
     </head>
 
     <body>
-        <header>
-            <jsp:include page="/views/login-details.jsp" />
-        </header>
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Student No</th>
-            </tr>
-            <tr>
-                <td>${id}</td>
-                <td>${name}</td>
-                <td>${email}</td>
-                <td>${studentNo}</td>
-            </tr>
-        </table>
-
+        <div id="view-studentDiv" style="margin-left: 200px;">
+            <table id=" table-display">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Student No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </body>
 
     </html>

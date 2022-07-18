@@ -20,4 +20,6 @@ public interface StudentService {
 	public String getStudentPassword(String userId);
 
 	public List<Menu> getMenu();
+
+	List<Student> getListById(String id);
 }

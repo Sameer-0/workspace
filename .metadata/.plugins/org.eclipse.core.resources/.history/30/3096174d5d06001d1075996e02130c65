@@ -9,8 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.studentcrud.model.Menu;
 import com.studentcrud.model.Student;
 import com.studentcrud.service.StudentService;
@@ -86,24 +84,10 @@ public class StudentController {
 	}
 
 	@GetMapping("/view-student/{id}")
-	@ResponseBody
-	public List<Student> viewStudent(@PathVariable String id, Model model) {
+	public Student viewStudent(@PathVariable String id, Model model) {
 
-		List<Student> students = studentService.getListById(id);
-		// model.addAttribute("id", students.getId());
-		// model.addAttribute("name", students.getName());
-		// model.addAttribute("email", students.getEmail());
-		// model.addAttribute("studentNo", students.getStudentNo());
-		System.out.println(students);
+		Student students = studentService.getById(id);
 		return students;
 	}
 
-	@GetMapping("/menu-return")
-	@ResponseBody
-	public List<Menu> menuList() {
-
-		List<Menu> lists = studentService.getMenu();
-		System.out.println(lists);
-		return lists;
-	}
 }

@@ -19,7 +19,7 @@ public class StudentDao implements StudentService {
 	private static final String deleteStudentById = "DELETE FROM STUDENT_PORTAL_FIRST WHERE ID=?";
 	private static final String getAllStudents = "SELECT * FROM STUDENT_PORTAL_FIRST";
 	private static final String getStudentPassword = "SELECT PASSWORD FROM STUDENT_PORTAL_FIRST WHERE ID=?";
-	private static final String getMenu = "SELECT M2.* FROM MENU M1,MENU M2 WHERE M1.ID=M2.PARENTID ORDER BY ID";
+	private static final String getMenu = "SELECT M2.* FROM MENU M1,MENU M2 WHERE M1.ID=M2.PARENTID";
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
@@ -77,14 +77,6 @@ public class StudentDao implements StudentService {
 		return jdbcTemplate.query(getMenu, (rs, rownum) -> {
 			return new Menu(rs.getInt("id"), rs.getString("name"), rs.getString("parentId"), rs.getString("link"));
 		});
-	}
-
-	@Override
-	public List<Student> getListById(String id) {
-		return jdbcTemplate.query(getStudentById, (rs, rownum) -> {
-			return new Student(rs.getString("id"), rs.getString("name"), rs.getString("email"),
-					rs.getString("password"), rs.getInt("studentNo"));
-		}, id);
 	}
 
 }
