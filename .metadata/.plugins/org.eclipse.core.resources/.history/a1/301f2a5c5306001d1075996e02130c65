@@ -19,9 +19,6 @@
       </div>
     </div>
     </header>
-    <div style="text-align: center;">
-    	Hello
-    </div>
 
     <script>
       function myAccFunc() {

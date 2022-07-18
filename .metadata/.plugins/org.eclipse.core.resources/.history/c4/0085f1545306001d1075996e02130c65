@@ -19,8 +19,8 @@
       </div>
     </div>
     </header>
-    <div style="text-align: center;">
-    	Hello
+    <div>
+    	<p>Hello WOrld</p>
     </div>
 
     <script>

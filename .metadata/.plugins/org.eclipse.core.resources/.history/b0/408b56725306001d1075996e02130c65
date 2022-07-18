@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <body>
-  <header>
     <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:160px;">
       <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
         Profile <i class="fa fa-caret-down"></i>
@@ -17,10 +16,6 @@
           <a href="${list.link}/${id}" class="w3-bar-item w3-button">${list.name}</a><br>
         </c:forEach>
       </div>
-    </div>
-    </header>
-    <div style="text-align: center;">
-    	Hello
     </div>
 
     <script>
