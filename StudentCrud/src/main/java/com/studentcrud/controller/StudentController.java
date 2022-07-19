@@ -1,7 +1,6 @@
 package com.studentcrud.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +8,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.studentcrud.model.Menu;
@@ -54,21 +55,6 @@ public class StudentController {
 		return "login";
 	}
 
-	@GetMapping("/edit-student/{id}")
-	public String editStudent(@PathVariable String id, Student student, ModelMap model) {
-
-		Student s = studentService.getById(id);
-
-		model.put("name", s.getName());
-		model.put("id", s.getId());
-		model.put("email", s.getEmail());
-		model.put("password", s.getPassword());
-		model.put("studentNo", s.getStudentNo());
-		List<Menu> lists = studentService.getMenu();
-		model.addAttribute("lists", lists);
-		return "edit";
-	}
-
 	@PostMapping("/student-update")
 	public String updateStudent(Student student, Model model) {
 		studentService.updateStudent(student);
@@ -78,11 +64,13 @@ public class StudentController {
 		return "login-details";
 	}
 
-	@GetMapping("/delete-student/{id}")
-	public String deleteStudent(@PathVariable String id, Model model) {
+	@RequestMapping(value = "/delete-student/{id}", method = RequestMethod.DELETE)
+	public Object deleteStudent(@PathVariable String id, Model model) {
 		studentService.deleteById(id);
-		model.addAttribute("errorMsg", "Student with id " + id + " deleted successfully");
-		return "login";
+		/*
+		 * model.addAttribute("errorMsg", "Student with id " + id +
+		 * " deleted successfully");
+		 */ return null;
 	}
 
 	@GetMapping("/view-student/{id}")
@@ -90,10 +78,6 @@ public class StudentController {
 	public List<Student> viewStudent(@PathVariable String id, Model model) {
 
 		List<Student> students = studentService.getListById(id);
-		// model.addAttribute("id", students.getId());
-		// model.addAttribute("name", students.getName());
-		// model.addAttribute("email", students.getEmail());
-		// model.addAttribute("studentNo", students.getStudentNo());
 		System.out.println(students);
 		return students;
 	}
