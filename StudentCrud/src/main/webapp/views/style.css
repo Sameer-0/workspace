@@ -13,7 +13,7 @@ body {
   background: white;
   width: 600px;
   padding: 25px;
-  margin: 50px auto 0;
+  margin: 0 auto 0;
   border-top: 7px solid orange;
   box-shadow: 0 0 7px 5px rgba(0, 0, 0, 0.5);
 }
@@ -73,4 +73,30 @@ label {
   text-align: center;
   color: red;
   margin: 20px;
+}
+#main-area {
+  margin-left: 150px;
+}
+
+table,
+th,
+td {
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+table {
+  width: 50%;
+  border-collapse: collapse;
+}
+
+th {
+  height: 30px;
+  padding: 15px;
+}
+
+td {
+  height: 50px;
+  vertical-align: bottom;
+  padding: 15px;
 }

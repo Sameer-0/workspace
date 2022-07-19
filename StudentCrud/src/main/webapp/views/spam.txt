@@ -1,0 +1,66 @@
+ // viewButton.addEventListener('click', function viewStudent(e) {
+      //   e.preventDefault();
+      //   console.log("Entered")
+
+      //   const xhr = new XMLHttpRequest();
+
+      //   xhr.open('GET', 'view-student/${id}', true);
+
+      //   xhr.onprogress = function () {
+      //     console.log("on Progresss");
+      //   }
+
+      //   xhr.onload = function () {
+      //     if (this.status == 200) {
+
+      //       let obj = JSON.parse(xhr.responseText);
+      //       console.log(obj.length)
+
+      //       let table = `<table id=" table-display">
+      //           <thead>
+      //               <tr>
+
+      //                   <th>Id</th>
+      //                   <th>Name</th>
+      //                   <th>Email</th>
+      //                   <th>Student No</th>
+      //               </tr>
+      //           </thead>
+      //           <tbody>
+      //           `;
+
+      //       for (let i = 0; i < obj.length; i++) {
+      //         console.log(obj[i])
+
+      //         table += `<tr><td>\${obj[i].id }</td>\<td>\${obj[i].name}\</td>\<td>\${obj[i].email}\</td>\<td>\${obj[i].studentNo}\</td></tr>`
+      //       }
+
+      //       table += `</tbody> </table>`;
+      //       console.log('table:::::::::::::', table)
+      //       $('#main-area').append(table)
+      //       console.log(obj)
+
+      //     } else {
+      //       console.log("Error", xhr);
+      //     }
+
+      //   }
+      //   xhr.send();
+      // }, { once: true });
+
+
+
+
+
+// model.put("name", s.getName());
+// model.put("id", s.getId());
+// model.put("email", s.getEmail());
+// model.put("password", s.getPassword());
+// model.put("studentNo", s.getStudentNo());
+// List<Menu> lists = studentService.getMenu();
+// model.addAttribute("lists", lists);
+
+// model.addAttribute("id", students.getId());
+// model.addAttribute("name", students.getName());
+// model.addAttribute("email", students.getEmail());
+// model.addAttribute("studentNo", students.getStudentNo());

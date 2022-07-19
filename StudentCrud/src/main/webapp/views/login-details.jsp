@@ -5,32 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/views/style.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-  <style>
-    table,
-    th,
-    /* td {
-      border-bottom: 1px solid #ddd;
-      text-align: center;
-    } */
-
-    table {
-      width: 50%;
-      border-collapse: collapse;
-    }
-
-    th {
-      height: 30px;
-      padding: 15px;
-    }
-
-    /* td {
-      height: 50px;
-      vertical-align: bottom;
-      padding: 15px;
-    } */
-  </style>
 
   <body>
     <header>
@@ -40,15 +16,13 @@
         </button>
         <div id="menu" class="w3-hide w3-white w3-card">
           <c:forEach var="list" items="${lists}">
-            <a href="${list.link}/${id}" id="${list.id}" class="w3-bar-item w3-button">${list.name}</a><br>
+            <a id="${list.id}" class="w3-bar-item w3-button">${list.name}</a><br>
           </c:forEach>
         </div>
       </div>
     </header>
-    <div style="text-align: center;" id="main-area">
-      <div id="view-studentDiv" style="margin-left: 200px;">
-      
-      </div>
+    <div id="main-area">
+
     </div>
 
     <script>
@@ -64,27 +38,20 @@
         }
       }
 
-      let button1 = document.getElementById('2');
-      
-      button1.addEventListener('click', function viewStudent(e) {
-        e.preventDefault();
-        console.log("Entered")
+      let viewButton = document.getElementById('2');
 
-        const xhr = new XMLHttpRequest();
+      $(document).ready(function () {
 
-        xhr.open('GET', 'view-student/${id}', true);
+        $('#2').on('click', function () {
 
-        xhr.onprogress = function () {
-          console.log("on Progresss");
-        }
+          $.ajax({
+            url: 'view-student/${id}',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+              console.log(response)
 
-        xhr.onload = function () {
-          if (this.status == 200) {
-
-            let obj = JSON.parse(xhr.responseText);
-            console.log(obj.length)
-
-            let table = `<table id=" table-display">
+              let table = `<table id=" table-display">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -95,48 +62,99 @@
                 </thead>
                 <tbody>
                 `;
+              response.forEach(element => {
 
-            for (let i = 0; i < obj.length; i++) {
-              console.log(obj[i])
-              
-              table += `<tr><td>\${obj[i].id}</td>\<td>\${obj[i].name}\</td>\<td>\${obj[i].email}\</td>\<td>\${obj[i].studentNo}\</td></tr>`
+                table += `<tr><td>\${element.id}</td>\<td>\${element.name}\</td>\<td>\${element.email}\</td>\<td>\${element.studentNo}\</td></tr>`
+              })
+
+              table += `</tbody> </table>`;
+              $('#main-area').html(table)
+            },
+            error: function (err) {
+              console.log(("Error", err))
             }
+          })
+        })
+      })
 
-            table +=`</tbody> </table>`;
-            console.log('table:::::::::::::',table)
-            $('#view-studentDiv').append(table)
-            console.log(obj)
-            
+
+      $(document).ready(function () {
+
+        $('#4').on('click', function () {
+
+          $.ajax({
+            url: 'view-student/${id}',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+              console.log(response);
+              let table = '';
+              response.forEach(element => {
+                console.log(element)
+                table += `
+                <div class="container">
+                  <h2>Edit Details</h2>
+                  <div class="form-container">
+                    <form method="post" id="myform" action="/student-update">
+                      <label for="name">Name</label>
+                      <span id="name-message" class="error"></span>
+                      <input type="text" class="name" name="name" id="name" value=\${element.name}\><br />
+
+                      <label for="id">Student Id</label><span id="id-message" class="error"></span>
+                      <input type="text" class="name" name="id" id="id" value=\${element.id}\><br />
+
+                      <label for="email">Email Id</label><span id="email-message" class="error"></span><br />
+                      <input type="text" class="email" name="email" id="email" value=\${element.email}\><br />
+
+                      <label for="password">Password</label><span id="password-message" class="error"></span><br />
+                      <input type="text" class="password" name="password" id="password" value=\${element.password}\><br />
+
+                      <input type="hidden" class="studentNo" name="studentNo" id="studentNo" value=\${element.studentNo}\>
+
+                        <input type="submit" id="button" class="button" value="Edit" />
+                    </form>
+                  </div>
+                </div>`
+              });
+              $('#main-area').html(table)
+            },
+            error: function (err) {
+              console.log("Error", err)
+            }
+          })
+        })
+      })
+
+
+      $(document).ready(function () {
+
+        $('#3').on('click', function () {
+          let x = confirm('Are you sure you want to delete?');
+          if (x) {
+            console.log("Entered")
+            $.ajax({
+              url: 'delete-student/${id}',
+              type: 'DELETE',
+              success: function (response) {
+                if (response.d == true) {
+                  window.location = '/register'
+                  document.getElementById('msg').innerHTML = "Deleted Successfully"
+                }
+              },
+              error: function (err) {
+                window.location = '/register'
+                document.getElementById('msg').innerHTML = "Deleted Successfully"
+                console.log('Error', err);
+              }
+            })
+
           } else {
-            console.log("Error", xhr);
+            console.log("Canceled")
+            return false;
           }
-          
-        }
-        xhr.send();
-      },{once:true})
+        })
+      })
 
-      // $('button1').click(function (e) {
-      //   e.preventDefault();
-      //   $.ajax({
-      //     type: 'GET',
-      //     url: 'view-student/${id}',
-      //     success: function (result) {
-      //       let obj = JSON.parse(xhr.responseText);
-      //       console.log(obj)
-      //     }
-      //   })
-      // })
-      // $('button1').click(function (e) {
-      //   e.preventDefault();
-      //   $.ajax({
-      //     url: 'view-student/${id}',
-      //     method: 'GET',
-      
-      //     success: function (responseText) {
-      //       console.log(this.responseText);
-      //     }
-      //   })
-      // })
     </script>
 
   </body>
