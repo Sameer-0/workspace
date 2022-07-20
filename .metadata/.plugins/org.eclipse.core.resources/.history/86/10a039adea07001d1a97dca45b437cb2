@@ -104,17 +104,3 @@ public class StudentController {
 		return lists;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

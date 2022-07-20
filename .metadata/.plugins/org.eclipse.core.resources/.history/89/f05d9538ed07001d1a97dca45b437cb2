@@ -71,10 +71,10 @@ public class StudentController {
 	@RequestMapping(value = "/delete-student/{id}", method = RequestMethod.DELETE)
 	public Object deleteStudent(@PathVariable String id, Model model) {
 		studentService.deleteById(id);
-		/*
-		 * model.addAttribute("errorMsg", "Student with id " + id +
-		 * " deleted successfully");
-		 */ return null;
+
+		model.addAttribute("errorMsg", "Student with id " + id +
+				" deleted successfully");
+		return null;
 	}
 
 	@GetMapping("/view-student/{id}")
@@ -104,17 +104,3 @@ public class StudentController {
 		return lists;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
