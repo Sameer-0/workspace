@@ -1,6 +1,9 @@
 package com.studentcrud.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +42,7 @@ public class StudentController {
 	}
 
 	@PostMapping("/login")
-	public String StudentLogin(Model model, Student student) {
+	public String StudentLogin(Model model, Student student, HttpSession httpSession) {
 
 		String password = studentService.getStudentPassword(student.getId());
 		String displayPassword = student.getPassword();
@@ -48,11 +51,12 @@ public class StudentController {
 			model.addAttribute("errorMsg", "User is not registered, please register");
 			return "login";
 		} else if (displayPassword.equals(password)) {
+			httpSession.setAttribute("name", student.getName());
 			Student students = studentService.getById(student.getId());
 			model.addAttribute("id", students.getId());
 
 			List<Menu> lists = studentService.getMenu();
-			model.addAttribute("lists", lists);
+			httpSession.setAttribute("lists", lists);
 			return "login-details";
 		}
 		model.addAttribute("errorMsg", "Password is incorrect");
@@ -63,8 +67,6 @@ public class StudentController {
 	public String updateStudent(Student student, Model model) {
 		studentService.updateStudent(student);
 		model.addAttribute("id", student.getId());
-		List<Menu> lists = studentService.getMenu();
-		model.addAttribute("lists", lists);
 		return "login-details";
 	}
 
@@ -104,17 +106,3 @@ public class StudentController {
 		return lists;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
