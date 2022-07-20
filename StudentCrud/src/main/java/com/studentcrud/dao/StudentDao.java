@@ -54,9 +54,9 @@ public class StudentDao implements StudentService {
 	}
 
 	@Override
-	public Student allStudents() {
+	public List<Student> allStudents() {
 
-		return jdbcTemplate.queryForObject(getAllStudents, (rs, rownum) -> {
+		return jdbcTemplate.query(getAllStudents, (rs, rownum) -> {
 			return new Student(rs.getString("id"), rs.getString("name"), rs.getString("email"),
 					rs.getString("password"), rs.getInt("studentNo"));
 		});

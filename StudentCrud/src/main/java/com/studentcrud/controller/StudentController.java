@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.studentcrud.model.Menu;
 import com.studentcrud.model.Student;
 import com.studentcrud.service.StudentService;
@@ -75,11 +76,21 @@ public class StudentController {
 
 	@GetMapping("/view-student/{id}")
 	@ResponseBody
-	public List<Student> viewStudent(@PathVariable String id, Model model) {
+	public String viewStudent(@PathVariable String id, Model model) {
 
+		/*
+		 * List<Student> s = studentService.allStudents();
+		 * 
+		 * Gson gson = new Gson(); String json = gson.toJson(s);
+		 * 
+		 * System.out.println(json);
+		 */
+		
 		List<Student> students = studentService.getListById(id);
-		System.out.println(students);
-		return students;
+		Gson gson = new Gson();
+		String json = gson.toJson(students);
+		System.out.println(json);
+		return json;
 	}
 
 	@GetMapping("/menu-return")

@@ -15,7 +15,7 @@ public interface StudentService {
 
 	String deleteById(String id);
 
-	Student allStudents();
+	List<Student> allStudents();
 
 	public String getStudentPassword(String userId);
 
