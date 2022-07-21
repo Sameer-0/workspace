@@ -42,7 +42,7 @@ public class StudentController {
 	}
 
 	@PostMapping("/dashboard")
-	public String StudentLogin(Model model, Student student, HttpSession httpSession, HttpServletRequest request) {
+	public String StudentLogin(Model model, Student student, HttpServletRequest request) {
 
 		String password = studentService.getStudentPassword(student.getId());
 		String displayPassword = student.getPassword();
@@ -52,14 +52,14 @@ public class StudentController {
 			return "login";
 		} else if (displayPassword.equals(password)) {
 
+			HttpSession session = request.getSession();
 			Student students = studentService.getById(student.getId());
+			session.setAttribute("id", student.getId());
 			model.addAttribute("name", student.getName());
 			model.addAttribute("id", students.getId());
-
+			model.addAttribute("sessionId", session.getId());
 			List<Menu> lists = studentService.getMenu();
-			httpSession.getAttribute("lists");
-			String jsonMenu = gson.toJson(lists);
-			request.getSession().setAttribute("lists", jsonMenu);
+			model.addAttribute("lists", lists);
 			return "login-details";
 		}
 		model.addAttribute("errorMsg", "Password is incorrect");
@@ -103,9 +103,10 @@ public class StudentController {
 
 	@GetMapping("/logout-student")
 	@ResponseBody
-	public String logout(HttpServletRequest request) {
-
-		request.getSession().invalidate();
-		return "logout";
+	public String logout(HttpServletRequest request, Student students, Model model) {
+		HttpSession session = request.getSession(false);
+		session.invalidate();
+		System.out.println("Logout success");
+		return "login";
 	}
 }
