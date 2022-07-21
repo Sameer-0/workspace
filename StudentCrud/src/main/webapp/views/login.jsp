@@ -1,35 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+  <!DOCTYPE html>
+  <html>
+
   <head>
     <meta charset="ISO-8859-1" />
     <title>Student Login</title>
     <link rel="stylesheet" href="/views/style.css" />
   </head>
+
   <body>
     <h2 class="msg-error" id="msg">${errorMsg}</h2>
     <div class="container">
       <h2>Student Login</h2>
-      <form id="login-form" action="/login" method="post">
+      <form id="login-form" action="/dashboard" method="post">
         <div class="input-name">
           <label for="id">Student Id</label>
-          <span id="id-message" class="error"></span> <br /><input
-            type="text"
-            id="id"
-            class="id"
-            name="id"
-          />
+          <span id="id-message" class="error"></span> <br /><input type="text" id="id" class="id" name="id" />
         </div>
 
         <div class="input-name">
           <label for="password">password</label>
-          <span id="password-message" class="error"></span> <br /><input
-            type="text"
-            id="password"
-            class="password"
-            name="password"
-          />
+          <span id="password-message" class="error"></span> <br /><input type="text" id="password" class="password"
+            name="password" />
         </div>
 
         <div class="button1">
@@ -44,4 +36,5 @@ pageEncoding="ISO-8859-1"%>
       </a>
     </div>
   </body>
-</html>
+
+  </html>
