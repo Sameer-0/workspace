@@ -13,7 +13,7 @@
     <div class="container">
       <h2>Student Registration form</h2>
       <div class="form-container">
-        <form method="post" id="myform" onclick="formValidation(event)" action="student-details">
+        <form method="post" id="myform" onclick="formValidation(event)" action="student-login">
           <label for="name">Name</label>
           <span id="name-message" class="error"></span>
           <input type="text" class="name" name="name" id="name" /><br />

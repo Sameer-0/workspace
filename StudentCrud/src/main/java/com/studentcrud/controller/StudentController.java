@@ -2,8 +2,8 @@ package com.studentcrud.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.google.gson.Gson;
 import com.studentcrud.model.Menu;
 import com.studentcrud.model.Student;
@@ -29,11 +28,16 @@ public class StudentController {
 	Gson gson;
 
 	@GetMapping("/register")
-	public String register(Model model) {
+	public String register() {
 		return "index";
 	}
 
-	@PostMapping("/student-details")
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+
+	@PostMapping("/student-login")
 	public String StudentInfo(ModelMap model, Student student) {
 		studentService.saveStudent(student);
 		model.put("errorMsg", "Registered Successfully, you can now Login !");
@@ -41,7 +45,7 @@ public class StudentController {
 	}
 
 	@PostMapping("/dashboard")
-	public String StudentLogin(Model model, Student student, HttpServletRequest request) {
+	public String StudentLogin(Model model, Student student, HttpSession httpSession) {
 
 		String password = studentService.getStudentPassword(student.getId());
 		String displayPassword = student.getPassword();
@@ -51,18 +55,24 @@ public class StudentController {
 			return "login";
 		} else if (displayPassword.equals(password)) {
 
-			HttpSession session = request.getSession();
-			Student students = studentService.getById(student.getId());
-			session.setAttribute("id", student.getId());
-			model.addAttribute("name", student.getName());
-			model.addAttribute("id", students.getId());
-			model.addAttribute("sessionId", session.getId());
+			httpSession.setAttribute("id", student.getId());
+			return "redirect:/student-dashboard";
+		}
+		model.addAttribute("errorMsg", "Password is incorrect");
+		return "login";
+	}
+
+	@GetMapping("/student-dashboard")
+	public String studentDashboard(Model model, HttpSession httpSession) {
+
+		if (httpSession.getAttribute("id") != null) {
+			Student student = studentService.getById((String) httpSession.getAttribute("id"));
+			model.addAttribute("id", student.getId());
 			List<Menu> lists = studentService.getMenu();
 			model.addAttribute("lists", lists);
 			return "login-details";
 		}
-		model.addAttribute("errorMsg", "Password is incorrect");
-		return "login";
+		return "redirect:/login";
 	}
 
 	@PostMapping("/student-update")
@@ -80,7 +90,7 @@ public class StudentController {
 		/*
 		 * model.addAttribute("errorMsg", "Student with id " + id +
 		 * " deleted successfully");
-		 */ return null;
+		 */ return "deleted";
 	}
 
 	@PostMapping("/view-student")
@@ -103,11 +113,10 @@ public class StudentController {
 	}
 
 	@GetMapping("/logout-student")
-	@ResponseBody
-	public String logout(HttpServletRequest request, Student students, Model model) {
-		HttpSession session = request.getSession(false);
-		session.invalidate();
-		System.out.println("Logout success");
+	public String logout(Student students, Model model, HttpSession httpSession) {
+		String sessionId = (String) httpSession.getAttribute("id");
+		System.out.println(sessionId);
+		httpSession.invalidate();
 		return "login";
 	}
 }

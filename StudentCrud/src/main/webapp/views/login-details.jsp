@@ -137,14 +137,12 @@
                 type: 'POST',
                 data: { "id": id },
                 success: function (response) {
-                  if (response.d == true) {
-                    window.location = '/register'
-                    document.getElementById('msg').innerHTML = "Deleted Successfully"
+                  if (response == "deleted") {
+                    window.location = '/views/login.jsp'
                   }
                 },
                 error: function (err) {
-                  window.location = '/register'
-                  document.getElementById('msg').innerHTML = "Deleted Successfully"
+                  window.location = '/views/login.jsp'
                   console.log('Error', err);
                 }
               })
