@@ -95,7 +95,7 @@
                 <div class="container">
                   <h2>Edit Details</h2>
                   <div class="form-container">
-                    <form method="post" id="myform">
+                    <form method="post" id="myform" action="/student-update">
                       <label for="name">Name</label>
                       <span id="name-message" class="error"></span>
                       <input type="text" class="name" name="name" id="name" value=\${element.name}\><br />

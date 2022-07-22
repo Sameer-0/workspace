@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -66,10 +65,12 @@ public class StudentController {
 		return "login";
 	}
 
-	@PutMapping("/student-update")
+	@PostMapping("/student-update")
 	public String updateStudent(Student student, Model model) {
 		studentService.updateStudent(student);
 		model.addAttribute("id", student.getId());
+		List<Menu> lists = studentService.getMenu();
+		model.addAttribute("lists", lists);
 		return "login-details";
 	}
 
