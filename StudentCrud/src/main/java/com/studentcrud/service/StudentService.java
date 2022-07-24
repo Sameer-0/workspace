@@ -2,6 +2,7 @@ package com.studentcrud.service;
 
 import java.util.List;
 
+import com.studentcrud.model.FacultyDetails;
 import com.studentcrud.model.Menu;
 import com.studentcrud.model.Student;
 
@@ -22,4 +23,6 @@ public interface StudentService {
 	public List<Menu> getMenu();
 
 	List<Student> getListById(String id);
+
+	FacultyDetails saveFaculty(FacultyDetails details, int studentNo);
 }

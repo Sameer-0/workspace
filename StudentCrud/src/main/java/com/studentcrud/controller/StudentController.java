@@ -117,4 +117,11 @@ public class StudentController {
 		httpSession.invalidate();
 		return "login";
 	}
+
+	@PostMapping("/faculty-submission")
+	public String facultySubmission(HttpSession httpSession) {
+
+		System.out.println(httpSession.getAttribute("id"));
+		return null;
+	}
 }

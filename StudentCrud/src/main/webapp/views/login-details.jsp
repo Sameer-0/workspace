@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <body>
-      <div id="complete-div">
+      <div id="complete-div" style="margin-top: 0px;">
         <header>
           <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:160px;">
             <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">
@@ -76,9 +76,7 @@
               }
             })
           })
-        })
 
-        $(document).ready(function () {
           $('#4').on('click', function () {
             var id = '${id}'
             $.ajax({
@@ -123,9 +121,6 @@
               }
             })
           })
-        })
-
-        $(document).ready(function () {
 
           $('#3').on('click', function () {
             let x = confirm('Are you sure you want to delete your account?');
@@ -152,11 +147,8 @@
               return false;
             }
           })
-        })
 
-        $(document).ready(function () {
-
-          $('#5').on('click', function () {
+          $('#6').on('click', function () {
             console.log("Entered")
             $.ajax({
               url: '/logout-student',
@@ -176,8 +168,71 @@
               }
             })
           })
+
+          $('#5').on('click', function () {
+
+            console.log('Entered')
+            let form = `
+            <div class="container">
+                  <h2>Faculty Application</h2>
+                  <div class="form-container">
+                    <form id="faculty-form">
+
+                      <label for="photo">Passport Size Photo</label><span class="error"></span><br />
+                      <input type="file" class="photo" name="photo" id="photo" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
+                      <img id="preview" alt="your image" width="100" height="100" style="border: 1px solid #ced4da; margin-left:100px;"/><br>
+
+                      <label for="name">Name</label>
+                      <span id="name-message" class="error"></span>
+                      <input type="text" class="name" name="name" id="faculty-name"><br />
+
+                      <label for="email">Email</label><span id="email-message" class="error"></span><br />
+                      <input type="text" class="email" name="email" id="faculty-email"><br />
+                      
+                      <label for="contact">Contact No.</label><span id="contact-message" class="error"></span>
+                      <input type="text" class="contact" name="contact" id="faculty-contact" ><br />
+
+                      <label for="aadhar">Aadhar number</label><span id="aadhar-message" class="error"></span><br />
+                      <input type="text" class="aadhar" name="aadhar" id="aadhar"><br />
+
+                      <label for="pan">Pan number</label><span id="pan-message" class="error"></span><br />
+                      <input type="text" class="pan" name="pan" id="pan"><br />
+
+                      <input type="submit" id="next-button" class="button" value="Next" />
+                    </form>
+                </div>
+            </div>
+            `
+            $('#main-area').html(form)
+          })
+
+          $('#faculty-form').submit(function (e) {
+
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+              type: 'POST',
+              url: '/faculty-submission',
+              data: formData,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function (data) {
+                console.log(data)
+                alert("success")
+
+              },
+              error: function (error) {
+                console.log("ERROR", error);
+              }
+            })
+          })
+
+
         })
       </script>
+      <!-- <script src="/views/faculty.js"></script> -->
     </body>
 
     </html>

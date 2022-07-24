@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.studentcrud.model.FacultyDetails;
 import com.studentcrud.model.Menu;
 import com.studentcrud.model.Student;
 import com.studentcrud.service.StudentService;
@@ -20,6 +21,7 @@ public class StudentDao implements StudentService {
 	private static final String getAllStudents = "SELECT * FROM STUDENT_PORTAL_FIRST";
 	private static final String getStudentPassword = "SELECT PASSWORD FROM STUDENT_PORTAL_FIRST WHERE ID=?";
 	private static final String getMenu = "SELECT M2.* FROM MENU M1,MENU M2 WHERE M1.ID=M2.PARENTID ORDER BY ID";
+	private static final String insertFacultyDetails = "INSERT INTO faculty_details(photo,NAME,email,contactNo,aadhar,pan,parentId) VALUES(?,?,?,?,?,?,?);";
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
@@ -87,4 +89,11 @@ public class StudentDao implements StudentService {
 		}, id);
 	}
 
+	@Override
+	public FacultyDetails saveFaculty(FacultyDetails details, int studentNo) {
+
+		jdbcTemplate.update(insertFacultyDetails, details.getPhoto(), details.getName(), details.getEmail(),
+				details.getContactNo(), details.getAadhar(), details.getPan(), studentNo);
+		return details;
+	}
 }

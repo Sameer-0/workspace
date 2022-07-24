@@ -28,7 +28,10 @@ body {
 .name,
 .id,
 .email,
-.password {
+.password,
+.pan,
+.aadhar,
+.contact {
   width: 100%;
   position: relative;
   margin: 10px auto;
