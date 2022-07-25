@@ -14,7 +14,7 @@ body {
   width: 600px;
   padding: 25px;
   margin: 0 auto 0;
-  border-top: 7px solid orange;
+  border-top: 7px solid rgb(75, 75, 214);
   box-shadow: 0 0 7px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -31,7 +31,7 @@ body {
 .password,
 .pan,
 .aadhar,
-.contact {
+.contactNo {
   width: 100%;
   position: relative;
   margin: 10px auto;
@@ -39,7 +39,7 @@ body {
 
 .button {
   color: white;
-  background: orange;
+  background: rgb(75, 75, 214);
   height: 35px;
   line-height: 35px;
   width: 100%;
@@ -54,7 +54,7 @@ label {
 }
 
 .button:hover {
-  background: rgb(255, 128, 64);
+  background: #198754;
 }
 
 #btn-div {

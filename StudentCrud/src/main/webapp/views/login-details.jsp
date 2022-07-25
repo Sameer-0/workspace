@@ -32,11 +32,11 @@
           var x = document.getElementById("menu");
           if (x.className.indexOf("w3-show") == -1) {
             x.className += " w3-show";
-            x.previousElementSibling.className += " w3-orange";
+            x.previousElementSibling.className += " w3-indigo";
           } else {
             x.className = x.className.replace(" w3-show", "");
             x.previousElementSibling.className =
-              x.previousElementSibling.className.replace(" w3-orange", "");
+              x.previousElementSibling.className.replace(" w3-indigo", "");
           }
         }
 
@@ -123,8 +123,8 @@
           })
 
           $('#3').on('click', function () {
-            let x = confirm('Are you sure you want to delete your account?');
-            if (x) {
+            let confirmDelete = confirm('Are you sure you want to delete your account?');
+            if (confirmDelete) {
               console.log("Entered")
               var id = '${id}';
               $.ajax({
@@ -176,10 +176,10 @@
             <div class="container">
                   <h2>Faculty Application</h2>
                   <div class="form-container">
-                    <form id="faculty-form">
+                    <form id="faculty-form" enctype="multipart/form-data" method="POST" action="/faculty-submission">
 
                       <label for="photo">Passport Size Photo</label><span class="error"></span><br />
-                      <input type="file" class="photo" name="photo" id="photo" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
+                      <input accept="image/jpeg, image/png" type="file" class="photo" name="photo" id="photo" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
                       <img id="preview" alt="your image" width="100" height="100" style="border: 1px solid #ced4da; margin-left:100px;"/><br>
 
                       <label for="name">Name</label>
@@ -189,8 +189,8 @@
                       <label for="email">Email</label><span id="email-message" class="error"></span><br />
                       <input type="text" class="email" name="email" id="faculty-email"><br />
                       
-                      <label for="contact">Contact No.</label><span id="contact-message" class="error"></span>
-                      <input type="text" class="contact" name="contact" id="faculty-contact" ><br />
+                      <label for="contactNo">Contact No.</label><span id="contact-message" class="error"></span>
+                      <input type="text" class="contactNo" name="contactNo" id="faculty-contact" ><br />
 
                       <label for="aadhar">Aadhar number</label><span id="aadhar-message" class="error"></span><br />
                       <input type="text" class="aadhar" name="aadhar" id="aadhar"><br />
@@ -209,18 +209,22 @@
           $('#faculty-form').submit(function (e) {
 
             e.preventDefault();
-            var formData = new FormData(this);
+            var facultyDetails = new FormData($("#faculty-form")[0]);
 
             $.ajax({
               type: 'POST',
               url: '/faculty-submission',
-              data: formData,
+              data: facultyDetails,
               cache: false,
               contentType: false,
               processData: false,
               success: function (data) {
-                console.log(data)
-                alert("success")
+
+                console.log(data);
+                let message = `
+                  <h1>Done</h1>
+                `
+                $('#main-area').html(message)
 
               },
               error: function (error) {
@@ -228,8 +232,6 @@
               }
             })
           })
-
-
         })
       </script>
       <!-- <script src="/views/faculty.js"></script> -->

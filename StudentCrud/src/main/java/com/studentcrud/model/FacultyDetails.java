@@ -1,10 +1,8 @@
 package com.studentcrud.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class FacultyDetails {
     private int id;
-    private MultipartFile photo;
+    private String image;
     private String name;
     private String email;
     private String contactNo;
@@ -14,10 +12,10 @@ public class FacultyDetails {
     public FacultyDetails() {
     }
 
-    public FacultyDetails(int id, MultipartFile photo, String name, String email, String contactNo, String aadhar,
+    public FacultyDetails(int id, String image, String name, String email, String contactNo, String aadhar,
             String pan) {
         this.id = id;
-        this.photo = photo;
+        this.image = image;
         this.name = name;
         this.email = email;
         this.contactNo = contactNo;
@@ -33,12 +31,12 @@ public class FacultyDetails {
         this.id = id;
     }
 
-    public MultipartFile getPhoto() {
-        return photo;
+    public String getImage() {
+        return image;
     }
 
-    public void setPhoto(MultipartFile photo) {
-        this.photo = photo;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {
@@ -84,7 +82,7 @@ public class FacultyDetails {
     @Override
     public String toString() {
         return "FacultyDetails [aadhar=" + aadhar + ", contactNo=" + contactNo + ", email=" + email + ", id=" + id
-                + ", name=" + name + ", pan=" + pan + ", photo=" + photo + "]";
+                + ", name=" + name + ", pan=" + pan + ", image=" + image + "]";
     }
 
 }

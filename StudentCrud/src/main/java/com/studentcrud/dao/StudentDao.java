@@ -22,7 +22,7 @@ public class StudentDao implements StudentService {
 	private static final String getStudentPassword = "SELECT PASSWORD FROM STUDENT_PORTAL_FIRST WHERE ID=?";
 	private static final String getMenu = "SELECT M2.* FROM MENU M1,MENU M2 WHERE M1.ID=M2.PARENTID ORDER BY ID";
 	private static final String insertFacultyDetails = "INSERT INTO faculty_details(photo,NAME,email,contactNo,aadhar,pan,parentId) VALUES(?,?,?,?,?,?,?);";
-
+	private static final String getFacultyDetails = "SELECT * FROM `faculty_details`";
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -92,8 +92,16 @@ public class StudentDao implements StudentService {
 	@Override
 	public FacultyDetails saveFaculty(FacultyDetails details, int studentNo) {
 
-		jdbcTemplate.update(insertFacultyDetails, details.getPhoto(), details.getName(), details.getEmail(),
+		jdbcTemplate.update(insertFacultyDetails, details.getImage(), details.getName(), details.getEmail(),
 				details.getContactNo(), details.getAadhar(), details.getPan(), studentNo);
 		return details;
 	}
+
+	@Override
+	public FacultyDetails getFaculty() {
+		return jdbcTemplate.queryForObject(getFacultyDetails, (rs, rownum) -> {
+			return new FacultyDetails(rownum, rs.getString("photo"), null, null, null, null, null);
+		});
+	}
+
 }

@@ -25,4 +25,6 @@ public interface StudentService {
 	List<Student> getListById(String id);
 
 	FacultyDetails saveFaculty(FacultyDetails details, int studentNo);
+
+	FacultyDetails getFaculty();
 }
