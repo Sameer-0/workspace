@@ -2,17 +2,19 @@ package com.studentcrud.model;
 
 public class FacultyExperience {
 
+    private int id;
     private String university;
     private String subject;
-    private int yearsOfExperience;
+    private String yearsOfExperience;
     private String startDate;
     private String endDate;
 
     public FacultyExperience() {
     }
 
-    public FacultyExperience(String university, String subject, int yearsOfExperience, String startDate,
+    public FacultyExperience(int id, String university, String subject, String yearsOfExperience, String startDate,
             String endDate) {
+        this.id = id;
         this.university = university;
         this.subject = subject;
         this.yearsOfExperience = yearsOfExperience;
@@ -20,10 +22,12 @@ public class FacultyExperience {
         this.endDate = endDate;
     }
 
-    @Override
-    public String toString() {
-        return "FacultyExperience [endDate=" + endDate + ", startDate=" + startDate + ", subject=" + subject
-                + ", university=" + university + ", yearsOfExperience=" + yearsOfExperience + "]";
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUniversity() {
@@ -42,11 +46,11 @@ public class FacultyExperience {
         this.subject = subject;
     }
 
-    public int getYearsOfExperience() {
+    public String getYearsOfExperience() {
         return yearsOfExperience;
     }
 
-    public void setYearsOfExperience(int yearsOfExperience) {
+    public void setYearsOfExperience(String yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
 
@@ -64,6 +68,12 @@ public class FacultyExperience {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "FacultyExperience [endDate=" + endDate + ", id=" + id + ", startDate=" + startDate + ", subject="
+                + subject + ", university=" + university + ", yearsOfExperience=" + yearsOfExperience + "]";
     }
 
 }

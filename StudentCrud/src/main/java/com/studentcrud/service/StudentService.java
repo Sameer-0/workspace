@@ -3,6 +3,7 @@ package com.studentcrud.service;
 import java.util.List;
 
 import com.studentcrud.model.FacultyDetails;
+import com.studentcrud.model.FacultyExperience;
 import com.studentcrud.model.Menu;
 import com.studentcrud.model.Student;
 
@@ -26,5 +27,6 @@ public interface StudentService {
 
 	FacultyDetails saveFaculty(FacultyDetails details, int studentNo);
 
-	FacultyDetails getFaculty();
+	FacultyExperience saveFacultyExperience(FacultyExperience facultyExperience, int studentNo);
+	// FacultyDetails getFaculty();
 }

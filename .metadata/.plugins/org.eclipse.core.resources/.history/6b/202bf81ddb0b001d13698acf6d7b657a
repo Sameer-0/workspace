@@ -1,7 +1,7 @@
 package com.studentcrud.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import org.apache.commons.codec.binary.Base64;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,13 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.studentcrud.model.FacultyDetails;
-import com.studentcrud.model.FacultyExperience;
 import com.studentcrud.model.Menu;
 import com.studentcrud.model.Student;
 import com.studentcrud.service.StudentService;
@@ -46,7 +45,7 @@ public class StudentController {
 	public String StudentInfo(ModelMap model, Student student) {
 		studentService.saveStudent(student);
 		model.put("errorMsg", "Registered Successfully, you can now Login !");
-		return "redirect:/login";
+		return "login";
 	}
 
 	@PostMapping("/dashboard")
@@ -64,7 +63,7 @@ public class StudentController {
 			return "redirect:/student-dashboard";
 		}
 		model.addAttribute("errorMsg", "Password is incorrect");
-		return "redirect:/login";
+		return "login";
 	}
 
 	@GetMapping("/student-dashboard")
@@ -121,37 +120,24 @@ public class StudentController {
 		String sessionId = (String) httpSession.getAttribute("id");
 		System.out.println(sessionId);
 		httpSession.invalidate();
-		return "redirect:/login";
+		return "login";
 	}
 
 	@PostMapping("/faculty-submission")
 	@ResponseBody
-	public String facultySubmission(HttpSession httpSession, FacultyDetails facultyDetails) {
-
-		int id = (int) httpSession.getAttribute("studentNo");
-
-		System.out.println(facultyDetails.getImage());
+	public String facultySubmission(HttpSession httpSession, FacultyDetails facultyDetails,
+			@RequestParam("photo") MultipartFile file) {
 
 		try {
-			facultyDetails.setPhoto(facultyDetails.getImage().getBytes());
+			facultyDetails.setImage(Base64.encodeBase64String(file.getBytes()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		studentService.saveFaculty(facultyDetails, id);
-
-		return "Success";
-	}
-
-	@PostMapping("/experience-submission")
-	@ResponseBody
-	public String experienceSubmission(@RequestBody ArrayList<Object> facultyExperienceForm, HttpSession httpSession) {
-
 		int id = (int) httpSession.getAttribute("studentNo");
 
-		System.out.println(facultyExperienceForm);
-		System.out.println(facultyExperienceForm.size());
-		// studentService.saveFacultyExperience(facultyExperienceForm, id);
-		return "success";
+		studentService.saveFaculty(facultyDetails, id);
+
+		return "hello";
 	}
 }
