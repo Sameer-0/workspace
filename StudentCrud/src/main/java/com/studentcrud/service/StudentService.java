@@ -27,6 +27,6 @@ public interface StudentService {
 
 	FacultyDetails saveFaculty(FacultyDetails details, int studentNo);
 
-	FacultyExperience saveFacultyExperience(FacultyExperience facultyExperience, int studentNo);
+	void saveFacultyExperience(List<FacultyExperience> facultyExperience, int studentNo);
 	// FacultyDetails getFaculty();
 }

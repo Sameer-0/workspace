@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.studentcrud.model.FacultyDetails;
 import com.studentcrud.model.FacultyExperience;
@@ -142,12 +145,23 @@ public class StudentController {
 
 	@PostMapping("/experience-submission")
 	@ResponseBody
-	public String experienceSubmission(@RequestBody String facultyExperienceForm, HttpSession httpSession) {
+	public String experienceSubmission(@RequestBody String jsonString, HttpSession httpSession) {
 
 		int id = (int) httpSession.getAttribute("studentNo");
+		System.out.println("JSON::::: " + jsonString);
 
-		System.out.println(facultyExperienceForm);
-		// studentService.saveFacultyExperience(facultyExperienceForm, id);
+		ObjectMapper mapper = new ObjectMapper();
+		List<FacultyExperience> experience;
+		try {
+			experience = mapper.readValue(jsonString,
+					new TypeReference<List<FacultyExperience>>() {
+					});
+			System.out.println("CONVERTED::::: " + experience.toString());
+			studentService.saveFacultyExperience(experience, id);
+			return "success";
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		return "success";
 	}
 }

@@ -1,8 +1,11 @@
 package com.studentcrud.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -102,11 +105,28 @@ public class StudentDao implements StudentService {
 	}
 
 	@Override
-	public FacultyExperience saveFacultyExperience(FacultyExperience facultyExperience, int studentNo) {
-		jdbcTemplate.update(insertFacultyExperience, facultyExperience.getUniversity(), facultyExperience.getSubject(),
-				facultyExperience.getYearsOfExperience(), facultyExperience.getStartDate(),
-				facultyExperience.getEndDate(), studentNo);
-		return facultyExperience;
+	public void saveFacultyExperience(List<FacultyExperience> facultyExperience, int studentNo) {
+		jdbcTemplate.batchUpdate(insertFacultyExperience, new BatchPreparedStatementSetter() {
+
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				FacultyExperience experience = facultyExperience.get(i);
+				ps.setString(1, experience.getUniversity());
+				ps.setString(2, experience.getSubject());
+				ps.setString(3, experience.getYearsOfExperience());
+				ps.setString(4, experience.getStartDate());
+				ps.setString(5, experience.getEndDate());
+				ps.setInt(6, studentNo);
+
+			}
+
+			@Override
+			public int getBatchSize() {
+
+				return facultyExperience.size();
+			}
+
+		});
 	}
 
 	// @Override
