@@ -8,6 +8,7 @@
 		<item key="wrap" value="true"/>
 		<item key="incremental" value="false"/>
 		<list key="findhistory">
+			<item value="jac"/>
 			<item value="session"/>
 			<item value="mav"/>
 			<item value="jackson"/>

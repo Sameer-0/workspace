@@ -42,4 +42,5 @@
     <fullyQualifiedTypeName name="org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
     <fullyQualifiedTypeName name="org.springframework.security.config.annotation.web.configuration.EnableWebSecurity"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

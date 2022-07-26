@@ -348,7 +348,6 @@
               url: '/experience-submission',
               type: 'POST',
               contentType: 'application/json',
-              dataType: 'json',
               data: JSON.stringify(expArr),
               success: function (response) {
                 console.log("SUCCESS EXPERIENCE")
