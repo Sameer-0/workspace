@@ -329,48 +329,31 @@
             e.preventDefault()
             console.log("Experience enteredddddd")
 
-            let facultyExperienceForm = new FormData();
+            let expArr = []
 
-            $('input[name="university"]').each((index, element) => {
+            $('#mytable tbody tr').each((idx, elem) => {
+              let expObj = {}
+              expObj.university = $(elem).find('.university').val()
+              expObj.subject = $(elem).find('.subject').val()
+              expObj.yearsOfExperience = $(elem).find('.experience').val()
+              expObj.fromDate = $(elem).find('.from-date').val()
+              expObj.toDate = $(elem).find('.to-date').val()
 
-              let universityValue = $(element).val()
-              facultyExperienceForm.append('university', universityValue)
+              expArr.push(expObj)
+
             })
+            console.log(expArr)
 
-            $('input[name="subject"]').each((index, element) => {
-
-              let subjectValue = $(element).val()
-              facultyExperienceForm.append('subject', subjectValue)
-            })
-
-            $('input[name="experience"]').each((index, element) => {
-
-              let experienceValue = $(element).val()
-              facultyExperienceForm.append('yearsOfExperience', experienceValue)
-            })
-
-            $('input[name="from-date"]').each((index, element) => {
-
-              let fromDateValue = $(element).val()
-              facultyExperienceForm.append('startDate', fromDateValue)
-            })
-
-            $('input[name="to-date"]').each((index, element) => {
-
-              let toDateValue = $(element).val()
-              facultyExperienceForm.append('endDate', toDateValue)
-            })
-
-            console.log(...facultyExperienceForm);
-            console.log(Object.keys(facultyExperienceForm).length);
-
+            // console.log(JSON.parse(JSON.stringify(expArr)));
+            // let jsonObj = JSON.stringify(JSON.parse(expArr))
+            // console.log("JSONOBJECT", jsonObj)
+            // console.log("STRINGIFY", JSON.stringify(expArr))
             $.ajax({
               url: '/experience-submission',
               type: 'POST',
-              processData: false,
-              contentType: false,
-              cache: false,
-              data: facultyExperienceForm,
+              // contentType: 'application/json',
+              // dataType: 'json',
+              data: JSON.stringify(expArr),
               success: function (response) {
                 console.log("SUCCESS EXPERIENCE")
                 let headingSuccess = `<h3>Success</h3>`

@@ -12,6 +12,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -129,25 +131,33 @@ public class StudentController {
 
 		int id = (int) httpSession.getAttribute("studentNo");
 
+		System.out.println(facultyDetails.getImage());
+
 		try {
 			facultyDetails.setPhoto(facultyDetails.getImage().getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		studentService.saveFaculty(facultyDetails, id);
+		// studentService.saveFaculty(facultyDetails, id);
 
 		return "Success";
 	}
 
-	@PostMapping("/experience-submission")
+	@RequestMapping(value = "/experience-submission", method = RequestMethod.POST)
 	@ResponseBody
-	public String experienceSubmission(@RequestBody String facultyExperienceForm, HttpSession httpSession) {
+	public String experienceSubmission(@RequestBody String facultyExperienceArray,
+			HttpSession httpSession) {
 
-		int id = (int) httpSession.getAttribute("studentNo");
+		// int id = (int) httpSession.getAttribute("studentNo");
 
-		System.out.println(facultyExperienceForm);
-		// studentService.saveFacultyExperience(facultyExperienceForm, id);
+		// for (FacultyExperience facultyExperience : facultyExperienceArray) {
+
+		// studentService.saveFacultyExperience(facultyExperience, id);
+		// }
+
+		System.out.println(facultyExperienceArray);
+		System.out.println(facultyExperienceArray);
 		return "success";
 	}
 }
