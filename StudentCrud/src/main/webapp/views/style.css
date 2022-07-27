@@ -11,7 +11,7 @@ body {
 
 .container {
   background: white;
-  width: 600px;
+  width: 300px;
   padding: 25px;
   margin: 0 auto 0;
   border-top: 7px solid rgb(75, 75, 214);
@@ -102,4 +102,11 @@ td {
   height: 50px;
   vertical-align: bottom;
   padding: 15px;
+}
+.form-preview {
+  padding: 40px 50px 20px 50px;
+  width: 100%;
+  min-height: auto;
+  background-size: cover;
+  font-family: "Times New Roman", Times, serif;
 }

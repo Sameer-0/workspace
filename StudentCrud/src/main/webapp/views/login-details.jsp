@@ -5,11 +5,14 @@
     <title>Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="/views/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <body>
       <div id="complete-div" style="margin-top: 0px;">
@@ -45,7 +48,7 @@
           }
         }
         $(document).ready(function () {
-          $('#2').on('click', function () {
+          $(document).on('click', '#2', function () {
             var id = '${id}'
             console.log(id)
             $.ajax({
@@ -81,7 +84,7 @@
             })
           })
 
-          $('#4').on('click', function () {
+          $(document).on('click', '#4', function () {
             var id = '${id}'
             $.ajax({
               url: '/view-student',
@@ -94,7 +97,7 @@
                 response.forEach(element => {
                   console.log(element)
                   table += `
-                <div class="container">
+                <div class="container" style="max-width:600px;">
                   <h2>Edit Details</h2>
                   <div class="form-container">
                     <form method="post" id="myform" action="/student-update">
@@ -126,7 +129,7 @@
             })
           })
 
-          $('#3').on('click', function () {
+          $(document).on('click', '#3', function () {
             let confirmDelete = confirm('Are you sure you want to delete your account?');
             if (confirmDelete) {
               console.log("Entered")
@@ -152,7 +155,7 @@
             }
           })
 
-          $('#6').on('click', function () {
+          $(document).on('click', '#6', function () {
             console.log("Entered")
             $.ajax({
               url: '/logout-student',
@@ -173,11 +176,11 @@
             })
           })
 
-          $('#5').on('click', function () {
+          $(document).on('click', '#5', function () {
 
             console.log('Entered')
             let form = `
-            <div class="container">
+            <div class="container" style="max-width:600px;">
                   <h2>Faculty Application</h2>
                   <div class="form-container">
                     <div id="faculty-form" enctype="multipart/form-data">
@@ -233,16 +236,13 @@
 
                 console.log(data);
                 let message = `
-                              <div class="container" id="form-container">
+                <div class="container" >
+                              <div class="table-responsive" id="form-container">
                       <table id="mytable" class="table table-hover">
-                          <!-- <h4>Teaching Experience</h2> <span> <button id="add-btn" style="margin-left: 960px; margin-top: -60px;"
-                                      class="btn btn-primary"><i class="bi bi-plus-circle "></i></button></span> -->
+                        <div class="d-flex justify-content-between">
                           <h4>Teaching Experience</h4>
-
-                          <div class="d-flex justify-content-end mx-3">
-                              <button id="add-btn" style=" margin-top: -40px;" class="btn btn-primary bi bi-plus-circle"></button>
-                          </div>
-
+                              <button id="add-btn"class="btn btn-primary bi bi-plus-circle"></button>
+                        </div>
                           <thead>
                               <tr>
                                   <th>University</th>
@@ -276,10 +276,11 @@
                               </tr>
                           </tbody>
                       </table>
-                      <div class=" d-flex justify-content-end my-3 mx-4">
+                      <div class=" d-flex justify-content-end">
                           <button id="experience-submit" class="btn btn-success">Submit</button>
                       </div>
                   </div>
+                </div>
                 `
                 $('#main-area').html(message)
               },
@@ -342,8 +343,6 @@
               expArr.push(expObj)
 
             })
-            console.log(expArr)
-            console.log(JSON.stringify(expArr));
             $.ajax({
               url: '/experience-submission',
               type: 'POST',
@@ -351,8 +350,97 @@
               data: JSON.stringify(expArr),
               success: function (response) {
                 console.log("SUCCESS EXPERIENCE")
-                let headingSuccess = `<h3>Success</h3>`
-                $('#main-area').html(headingSuccess)
+                console.log(response)
+                let previewForm = `
+                <div class="form-preview">
+                      <div class="personal-preview">
+                          <div class="d-flex">
+                              <h3>Personal Information</h3>
+                              <div class="justify-content-end">
+                                  <i class="fa-solid fa-pen-to-square" style="color: blue;"></i>
+                              </div>
+                          </div>
+                          <div class="d-flex justify-content-between">
+                              <div class="name d-flex flex-column justify-content-evenly flex-fill">
+                                  <div class="border flex-fill">
+                                    <h5>Full Name:</h5>
+                                      <input type="text" readonly class="form-control-plaintext" id="faculty-details-name"
+                                          value="Sameer Shaikh">
+                                  </div>
+                                  <div class="border flex-fill">
+                                    <h5>Contact no:</h5>
+                                      <input type="text" readonly class="form-control-plaintext" id="faculty-details-contactNo"
+                                          value="8879338546">
+                                  </div>
+                                  <div class="border flex-fill">
+                                    <h5>Email Id:</h5>
+                                      <input type="text" readonly class="form-control-plaintext" id="faculty-details-email"
+                                          value="Hello@gmail.com">
+                                  </div>
+                              </div>
+                              <div class="photo border border-3" style="width: 130px; height:160px;">
+                                  <img src="" style="max-width: 100%;">
+                              </div>
+                          </div>
+                          <div class="pan-details">
+                              <div class="border">
+                                <h5>PAN Number:</h5>
+                                  <input type="text" readonly class="form-control-plaintext" id="faculty-details-name"
+                                      value="AAAAA1111A">
+                              </div>
+                          </div>
+                          <div class="aadhar-details">
+                              <div class="border">
+                                <h5>Aadhar Number:</h5>
+                                  <input type="text" readonly class="form-control-plaintext" id="faculty-details-name"
+                                      value="112233445566">
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="experience-preview">
+                          <div class="table-responsive">
+                              <h5>Teaching Experience:</h5>
+                              <table class="table-display table table-bordered experience-details" id="teachingDetails-table">
+                                  <thead>
+                                      <th>University</th>
+                                      <th>Subject</th>
+                                      <th>Years Of Experience</th>
+                                      <th>From</th>
+                                      <th>To</th>
+                                      <th>Edit</th>
+                                  </thead>
+                                  <tbody>
+                
+                `
+                response.forEach(element => {
+                  previewForm += `
+                                      <tr>
+                                          <td>\${element.university}\</td>
+                                          <td>\${element.subject}\</td>
+                                          <td>\${element.yearsOfExperience}\</td>
+                                          <td>\${element.startDate}\</td>
+                                          <td>\${element.endDate}\</td>
+                                          <td>
+                                              <i class="fa-solid fa-pen-to-square" style="color: blue;"></i>
+                                          </td>
+                                      </tr>
+                `
+                })
+                previewForm += `
+              </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                  <footer class="mt-5">
+                      <button class="btn btn-success" style="display: block; margin: auto; width: 50%;">Submit</button>
+                  </footer>
+                  </div>
+                  </div>
+                `
+
+                $('#main-area').html(previewForm)
               },
               error: function (err) {
                 console.log("ERROR", err);

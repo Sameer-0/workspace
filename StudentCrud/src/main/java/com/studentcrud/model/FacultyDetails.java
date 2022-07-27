@@ -1,7 +1,5 @@
 package com.studentcrud.model;
 
-import java.util.Arrays;
-
 import org.springframework.web.multipart.MultipartFile;
 
 public class FacultyDetails {
@@ -17,7 +15,7 @@ public class FacultyDetails {
     @Override
     public String toString() {
         return "FacultyDetails [aadhar=" + aadhar + ", contactNo=" + contactNo + ", email=" + email + ", id=" + id
-                + ", image=" + image + ", name=" + name + ", pan=" + pan + ", photo=" + Arrays.toString(photo) + "]";
+                + ", image=" + image + ", name=" + name + ", pan=" + pan + "]";
     }
 
     public FacultyDetails(int id, byte[] photo, String name, String email, String contactNo,
@@ -97,5 +95,4 @@ public class FacultyDetails {
     public void setPan(String pan) {
         this.pan = pan;
     }
-
 }

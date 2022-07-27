@@ -1,6 +1,7 @@
 package com.studentcrud.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -105,7 +108,6 @@ public class StudentController {
 
 		List<Student> students = studentService.getListById(id);
 		String json = gson.toJson(students);
-		System.out.println(json);
 		return json;
 	}
 
@@ -114,7 +116,6 @@ public class StudentController {
 	public List<Menu> menuList() {
 
 		List<Menu> lists = studentService.getMenu();
-		System.out.println(lists);
 		return lists;
 	}
 
@@ -137,31 +138,42 @@ public class StudentController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		studentService.saveFaculty(facultyDetails, id);
+		// studentService.saveFaculty(facultyDetails, id);
 
 		return "Success";
 	}
 
 	@PostMapping("/experience-submission")
 	@ResponseBody
-	public String experienceSubmission(@RequestBody String jsonString, HttpSession httpSession) {
+	public List<FacultyExperience> experienceSubmission(@RequestBody String jsonString, HttpSession httpSession)
+			throws IOException {
 
 		int id = (int) httpSession.getAttribute("studentNo");
-		System.out.println("JSON::::: " + jsonString);
 
 		ObjectMapper mapper = new ObjectMapper();
 		List<FacultyExperience> experience;
 		try {
-			experience = mapper.readValue(jsonString,
-					new TypeReference<List<FacultyExperience>>() {
-					});
-			System.out.println("CONVERTED::::: " + experience.toString());
-			studentService.saveFacultyExperience(experience, id);
-			return "success";
+			experience = mapper.readValue(jsonString, new TypeReference<List<FacultyExperience>>() {
+			});
+			// studentService.saveFacultyExperience(experience, id);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		return "success";
+
+		FacultyDetails details = studentService.getFacultyDetails(id);
+
+		List<FacultyExperience> FacultyexperienceList = studentService.getFacultyExperience(id);
+		// String json = gson.toJson(FacultyexperienceList);
+
+		// HashMap<String, Object> map = new HashMap<>();
+
+		// map.put("facultyPersonalDetails", details);
+		// map.put("facultyExperience", json);
+
+		// map.entrySet().forEach(entry -> {
+		// System.out.println(entry.getKey() + " " + entry.getValue());
+		// });
+		// System.out.println("*******************************************************");
+		return FacultyexperienceList;
 	}
 }
