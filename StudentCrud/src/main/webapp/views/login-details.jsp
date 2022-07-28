@@ -36,6 +36,7 @@
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
       <script>
+
         function myAccFunc() {
           var x = document.getElementById("menu");
           if (x.className.indexOf("w3-show") == -1) {
@@ -348,97 +349,132 @@
               type: 'POST',
               contentType: 'application/json',
               data: JSON.stringify(expArr),
-              success: function (response) {
-                console.log("SUCCESS EXPERIENCE")
-                console.log(response)
+              success: function (data) {
+
+                // console.log(typeof (data))
+                // console.log(data)
+                // console.log("DATA:::::::::::::", data.facultyDetailsJson.name)
+                // console.log("DATA:::::::::::::", data.facultyExperienceList)
+                // let facultyPersonalDetails = JSON.parse(data.facultyDetailsJson)
+                // let facultyExperience = JSON.parse(data.facultyExperienceList)
+
                 let previewForm = `
-                <div class="form-preview">
-                      <div class="personal-preview">
+                                      <div class="form-preview">
+                        <div class="personal-preview">
                           <div class="d-flex">
-                              <h3>Personal Information</h3>
-                              <div class="justify-content-end">
-                                  <i class="fa-solid fa-pen-to-square" style="color: blue;"></i>
-                              </div>
+                            <h3>Personal Information</h3>
+                            <div class="justify-content-end">
+                              <i class="fa-solid fa-pen-to-square" style="color: blue"></i>
+                            </div>
                           </div>
                           <div class="d-flex justify-content-between">
-                              <div class="name d-flex flex-column justify-content-evenly flex-fill">
-                                  <div class="border flex-fill">
-                                    <h5>Full Name:</h5>
-                                      <input type="text" readonly class="form-control-plaintext" id="faculty-details-name"
-                                          value="Sameer Shaikh">
-                                  </div>
-                                  <div class="border flex-fill">
-                                    <h5>Contact no:</h5>
-                                      <input type="text" readonly class="form-control-plaintext" id="faculty-details-contactNo"
-                                          value="8879338546">
-                                  </div>
-                                  <div class="border flex-fill">
-                                    <h5>Email Id:</h5>
-                                      <input type="text" readonly class="form-control-plaintext" id="faculty-details-email"
-                                          value="Hello@gmail.com">
-                                  </div>
+                            <div class="name d-flex flex-column justify-content-evenly flex-fill">
+                              <div class="border flex-fill">
+                                <h5>Full Name:</h5>
+                                <input
+                                  type="text"
+                                  readonly
+                                  class="form-control-plaintext"
+                                  id="faculty-details-name"
+                                  value="\${data.facultyDetailsJson.name}\"
+                                />
                               </div>
-                              <div class="photo border border-3" style="width: 130px; height:160px;">
-                                  <img src="" style="max-width: 100%;">
+                              <div class="border flex-fill">
+                                <h5>Contact no:</h5>
+                                <input
+                                  type="text"
+                                  readonly
+                                  class="form-control-plaintext"
+                                  id="faculty-details-contactNo"
+                                  value="\${data.facultyDetailsJson.contactNo}\"
+                                />
                               </div>
+                              <div class="border flex-fill">
+                                <h5>Email Id:</h5>
+                                <input
+                                  type="text"
+                                  readonly
+                                  class="form-control-plaintext"
+                                  id="faculty-details-email"
+                                  value="\${data.facultyDetailsJson.email}\"
+                                />
+                              </div>
+                            </div>
+                            <div class="photo border border-3" style="width: 130px; height: 160px">
+                              <img style="max-width: 100%" />
+                            </div>
                           </div>
                           <div class="pan-details">
-                              <div class="border">
-                                <h5>PAN Number:</h5>
-                                  <input type="text" readonly class="form-control-plaintext" id="faculty-details-name"
-                                      value="AAAAA1111A">
-                              </div>
+                            <div class="border">
+                              <h5>PAN Number:</h5>
+                              <input
+                                type="text"
+                                readonly
+                                class="form-control-plaintext"
+                                id="faculty-details-name"
+                                value="\${data.facultyDetailsJson.pan}\"
+                              />
+                            </div>
                           </div>
                           <div class="aadhar-details">
-                              <div class="border">
-                                <h5>Aadhar Number:</h5>
-                                  <input type="text" readonly class="form-control-plaintext" id="faculty-details-name"
-                                      value="112233445566">
+                            <div class="border">
+                              <h5>Aadhar Number:</h5>
+                              <input
+                                type="text"
+                                readonly
+                                class="form-control-plaintext"
+                                id="faculty-details-name"
+                                value="\${data.facultyDetailsJson.aadhar}\"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="experience-preview">
+                          <div class="table-responsive">
+                            <h5>Teaching Experience:</h5>
+                            <table
+                              class="table-display table table-bordered experience-details"
+                              id="teachingDetails-table"
+                            >
+                              <thead>
+                                <th>University</th>
+                                <th>Subject</th>
+                                <th>Years Of Experience</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Edit</th>
+                              </thead>
+                              <tbody>
+                `
+                      console.log(data.facultyExperienceList)
+                      console.log(data.facultyExperienceList.length)
+                for (let i = 0; i < data.facultyExperienceList.length; i++) {
+                  previewForm += `
+                            <tr>
+                                <td>\${data.facultyExperienceList[i].university}\</td>
+                                <td>\${data.facultyExperienceList[i].subject}\</td>
+                                <td>\${data.facultyExperienceList[i].yearsOfExperience}\</td>
+                                <td>\${data.facultyExperienceList[i].startDate}\</td>
+                                <td>\${data.facultyExperienceList[i].endDate}\</td>
+                                <td>
+                                     <i class="fa-solid fa-pen-to-square" style="color: blue;"></i>
+                                 </td>
+                            <tr>   
+                  `
+                }
+
+                previewForm += `         
+                              </tbody>
+                                      </table>
+                                  </div>
                               </div>
                           </div>
-                      </div>
-
-                      <div class="experience-preview">
-                          <div class="table-responsive">
-                              <h5>Teaching Experience:</h5>
-                              <table class="table-display table table-bordered experience-details" id="teachingDetails-table">
-                                  <thead>
-                                      <th>University</th>
-                                      <th>Subject</th>
-                                      <th>Years Of Experience</th>
-                                      <th>From</th>
-                                      <th>To</th>
-                                      <th>Edit</th>
-                                  </thead>
-                                  <tbody>
-                
-                `
-                response.forEach(element => {
-                  previewForm += `
-                                      <tr>
-                                          <td>\${element.university}\</td>
-                                          <td>\${element.subject}\</td>
-                                          <td>\${element.yearsOfExperience}\</td>
-                                          <td>\${element.startDate}\</td>
-                                          <td>\${element.endDate}\</td>
-                                          <td>
-                                              <i class="fa-solid fa-pen-to-square" style="color: blue;"></i>
-                                          </td>
-                                      </tr>
-                `
-                })
-                previewForm += `
-              </tbody>
-                              </table>
+                          <footer class="mt-5">
+                              <button class="btn btn-success" style="display: block; margin: auto; width: 50%;">Submit</button>
+                          </footer>
                           </div>
-                      </div>
-                  </div>
-                  <footer class="mt-5">
-                      <button class="btn btn-success" style="display: block; margin: auto; width: 50%;">Submit</button>
-                  </footer>
-                  </div>
-                  </div>
-                `
+                          </div>`
 
                 $('#main-area').html(previewForm)
               },

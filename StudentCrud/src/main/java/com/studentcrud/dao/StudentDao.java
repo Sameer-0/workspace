@@ -27,7 +27,7 @@ public class StudentDao implements StudentService {
 	private static final String getMenu = "SELECT M2.* FROM MENU M1,MENU M2 WHERE M1.ID=M2.PARENTID ORDER BY ID";
 	private static final String insertFacultyDetails = "INSERT INTO faculty_details(photo,NAME,email,contactNo,aadhar,pan,parentId) VALUES(?,?,?,?,?,?,?);";
 	private static final String insertFacultyExperience = "INSERT INTO faculty_experience(university,subject,yearsOfExperience,startDate,endDate,parentID) VALUES(?,?,?,?,?,?)";
-	private static final String getFacultyDetailsQuery = "SELECT * FROM faculty_details where parentId = ?";
+	private static final String getFacultyDetailsQuery = "SELECT * FROM faculty_details where parentId = ? limit 1";
 	private static final String getfacultyExperienceQuery = "SELECT * FROM faculty_experience where parentId = ?";
 
 	@Autowired
@@ -132,7 +132,7 @@ public class StudentDao implements StudentService {
 	@Override
 	public FacultyDetails getFacultyDetails(int studentNo) {
 		return jdbcTemplate.queryForObject(getFacultyDetailsQuery, (rs, rownum) -> {
-			return new FacultyDetails(rs.getInt("id"), rs.getBytes("photo"), rs.getString("name"),
+			return new FacultyDetails(rs.getInt("id"), rs.getString("photo"), rs.getString("name"),
 					rs.getString("email"), rs.getString("contactNo"), rs.getString("aadhar"), rs.getString("pan"));
 		}, studentNo);
 	}

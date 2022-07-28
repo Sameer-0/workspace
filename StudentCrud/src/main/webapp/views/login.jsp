@@ -12,7 +12,7 @@
 
     <body>
       <h2 class="msg-error" id="msg">${errorMsg}</h2>
-      <div class="container">
+      <div class="container" style="width: 600px;">
         <h2>Student Login</h2>
         <form id="login-form" action="/dashboard" method="post">
           <div class="input-name">

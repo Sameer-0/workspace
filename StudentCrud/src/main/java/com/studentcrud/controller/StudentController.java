@@ -1,7 +1,9 @@
 package com.studentcrud.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,24 +14,19 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.studentcrud.model.FacultyDetails;
-import com.studentcrud.model.FacultyExperience;
 import com.studentcrud.model.Menu;
 import com.studentcrud.model.Student;
 import com.studentcrud.service.StudentService;
 
 @Controller
 public class StudentController {
+
+	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/imagedata";
 
 	@Autowired
 	StudentService studentService;
@@ -133,47 +130,19 @@ public class StudentController {
 
 		int id = (int) httpSession.getAttribute("studentNo");
 
+		String filename = id + facultyDetails.getImage().getOriginalFilename()
+				.substring(facultyDetails.getImage().getOriginalFilename().length() - 4);
+
+		Path fileNameAndPath = Paths.get(uploadDirectory, filename);
+
 		try {
-			facultyDetails.setPhoto(facultyDetails.getImage().getBytes());
+			Files.write(fileNameAndPath, facultyDetails.getImage().getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// studentService.saveFaculty(facultyDetails, id);
+		facultyDetails.setPhoto(filename);
+		studentService.saveFaculty(facultyDetails, id);
 
 		return "Success";
-	}
-
-	@PostMapping("/experience-submission")
-	@ResponseBody
-	public List<FacultyExperience> experienceSubmission(@RequestBody String jsonString, HttpSession httpSession)
-			throws IOException {
-
-		int id = (int) httpSession.getAttribute("studentNo");
-
-		ObjectMapper mapper = new ObjectMapper();
-		List<FacultyExperience> experience;
-		try {
-			experience = mapper.readValue(jsonString, new TypeReference<List<FacultyExperience>>() {
-			});
-			// studentService.saveFacultyExperience(experience, id);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-
-		FacultyDetails details = studentService.getFacultyDetails(id);
-
-		List<FacultyExperience> FacultyexperienceList = studentService.getFacultyExperience(id);
-		// String json = gson.toJson(FacultyexperienceList);
-
-		// HashMap<String, Object> map = new HashMap<>();
-
-		// map.put("facultyPersonalDetails", details);
-		// map.put("facultyExperience", json);
-
-		// map.entrySet().forEach(entry -> {
-		// System.out.println(entry.getKey() + " " + entry.getValue());
-		// });
-		// System.out.println("*******************************************************");
-		return FacultyexperienceList;
 	}
 }

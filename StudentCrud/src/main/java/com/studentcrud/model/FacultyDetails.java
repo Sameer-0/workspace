@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FacultyDetails {
     private int id;
     private MultipartFile image;
-    private byte[] photo;
+    private String photo;
     private String name;
     private String email;
     private String contactNo;
@@ -15,10 +15,10 @@ public class FacultyDetails {
     @Override
     public String toString() {
         return "FacultyDetails [aadhar=" + aadhar + ", contactNo=" + contactNo + ", email=" + email + ", id=" + id
-                + ", image=" + image + ", name=" + name + ", pan=" + pan + "]";
+                + ", name=" + name + ", pan=" + pan + "]";
     }
 
-    public FacultyDetails(int id, byte[] photo, String name, String email, String contactNo,
+    public FacultyDetails(int id, String photo, String name, String email, String contactNo,
             String aadhar, String pan) {
         this.id = id;
         this.photo = photo;
@@ -48,11 +48,11 @@ public class FacultyDetails {
         this.image = image;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
