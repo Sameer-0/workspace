@@ -401,7 +401,7 @@
                               </div>
                             </div>
                             <div class="photo border border-3" style="width: 130px; height: 160px">
-                              <img style="max-width: 100%" />
+                              <img src="../imagedata/\${data.facultyDetailsJson.photo}\" style="max-width: 100%" />
                             </div>
                           </div>
                           <div class="pan-details">
@@ -488,4 +488,4 @@
       <!-- <script src="/views/faculty.js"></script> -->
     </body>
 
-    </html>
+</html>
