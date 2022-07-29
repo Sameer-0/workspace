@@ -27,7 +27,7 @@ public class StudentDao implements StudentService {
 	private static final String getMenu = "SELECT M2.* FROM MENU M1,MENU M2 WHERE M1.ID=M2.PARENTID ORDER BY ID";
 	private static final String insertFacultyDetails = "INSERT INTO faculty_details(photo,NAME,email,contactNo,aadhar,pan,parentId) VALUES(?,?,?,?,?,?,?);";
 	private static final String insertFacultyExperience = "INSERT INTO faculty_experience(university,subject,yearsOfExperience,startDate,endDate,parentID) VALUES(?,?,?,?,?,?)";
-	private static final String getFacultyDetailsQuery = "SELECT * FROM faculty_details where parentId = ? limit 1";
+	private static final String getFacultyDetailsQuery = "SELECT * FROM faculty_details where parentId = ? order by id DESC limit 1";
 	private static final String getfacultyExperienceQuery = "SELECT * FROM faculty_experience where parentId = ?";
 
 	@Autowired

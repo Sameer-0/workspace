@@ -130,8 +130,7 @@ public class StudentController {
 
 		int id = (int) httpSession.getAttribute("studentNo");
 
-		String filename = id + facultyDetails.getImage().getOriginalFilename()
-				.substring(facultyDetails.getImage().getOriginalFilename().length() - 4);
+		String filename = id + facultyDetails.getImage().getOriginalFilename();
 
 		Path fileNameAndPath = Paths.get(uploadDirectory, filename);
 

@@ -51,11 +51,9 @@ public class StudentRestController {
         List<FacultyExperience> facultyExperienceList = studentService.getFacultyExperience(id);
         FacultyDetails details = studentService.getFacultyDetails(id);
 
-        model.addAttribute("photo", details.getPhoto());
         JSONObject object = new JSONObject();
         object.put("facultyExperienceList", facultyExperienceList);
         object.put("facultyDetailsJson", details);
-        System.out.println(object);
         return object;
     }
 }
