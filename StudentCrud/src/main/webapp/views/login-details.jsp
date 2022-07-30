@@ -359,6 +359,113 @@
                 // let facultyExperience = JSON.parse(data.facultyExperienceList)
 
                 let previewForm = `
+                                    <!-- Modal -->
+                        <div
+                          class="modal fade"
+                          id="staticBackdrop"
+                          data-bs-backdrop="static"
+                          data-bs-keyboard="false"
+                          tabindex="-1"
+                          aria-labelledby="staticBackdropLabel"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog modal-dialog-centered modal-l">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">
+                                  Faculty Application
+                                </h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">
+                                <form>
+                                <div class="md-form">
+                                  <div id="faculty-form" enctype="multipart/form-data">
+                                    <label for="image">Passport Size Photo</label
+                                    ><span class="error"></span><br />
+                                    <input
+                                      accept="image/jpeg, image/jpg, image/png"
+                                      type="file"
+                                      class="image"
+                                      name="image"
+                                      id="image"
+                                      onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"
+                                    />
+                                    <img
+                                      id="preview"
+                                      alt="your image"
+                                      width="100"
+                                      height="100"
+                                      class="md-form mb-3"
+                                      style="
+                                        border: 1px solid #ced4da;
+                                        margin-left: 300px;
+                                        margin-top: -60px;
+                                      "
+                                    /><br />
+
+                                    <div class="md-form">
+                                      <input type="text" class="form-control name="name" id="name"
+                                      /><br />
+                                    </div>
+
+                                    <div class="md-form">
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        name="email"
+                                        id="email"
+                                      /><br />
+                                    </div>
+
+                                    <div class="md-form">
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        name="contactNo"
+                                        id="contactNo"
+                                      /><br />
+                                    </div>
+
+                                    <div class="md-form">
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        name="aadhar"
+                                        id="aadhar"
+                                      /><br />
+                                    </div>
+
+                                    <div class="md-form">
+                                      <input
+                                        type="text"
+                                        class="form-control"
+                                        name="pan"
+                                        id="pan"
+                                      /><br />
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-secondary"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Close
+                                </button>
+                                <button type="button" class="btn btn-primary">Submit</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                                       <div class="form-preview">
                         <div class="personal-preview">
                           <div class="d-flex">
@@ -483,6 +590,45 @@
               }
             })
           })
+
+          $(document).on('click','#add-btn', function () {
+            console.log("clicked")
+            let table = `
+                    <tr>
+                        <td>
+                            <input type="text" name="university" class="university">
+                        </td>
+                        <td>
+                            <input type="text" name="subject" class="subject">
+                        </td>
+                        <td>
+                            <input type="text" name="experience" class="experience">
+                        </td>
+                        <td>
+                            <input type="date" name"from-date class="from-date">
+                        </td>
+                        <td>
+                            <input type="date" name="to-date" class="to-date">
+                        </td>
+                        <td><button class="delete-btn btn btn-danger bi bi-trash">
+                            </button>
+                        </td>
+                    </tr>
+            `
+            $('#table-body').append(table)
+        })
+
+        $('#mytable').on('click', '.delete-btn', function () {
+            let x = confirm("Do you really want to delete this row?")
+            if (x) {
+                $(this).closest('tr').remove()
+                // $(this).parent().parent().remove()
+            }
+        })
+    
+      $(document).on("click", ".ubaid", function () {
+        $("#staticBackdrop").modal("toggle");
+      });
         })
       </script>
       <!-- <script src="/views/faculty.js"></script> -->
