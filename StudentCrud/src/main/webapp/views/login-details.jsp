@@ -34,6 +34,16 @@
       </div>
 
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+        crossorigin="anonymous"
+      ></script>
       <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
       <script>
 
@@ -466,12 +476,91 @@
                             </div>
                           </div>
                         </div>
+
+
+
+                                          <div class="modal fade modal-xl"
+                          id="myModal2"  
+                          data-bs-backdrop="static"
+                          data-bs-keyboard="false"
+                          tabindex="-1"
+                          aria-labelledby="staticBackdropLabel"
+                          aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered modal-l">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Teaching Experience</h4>
+                            <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                          </div>
+                    
+                          <!-- Modal body -->
+                          <div class="modal-body d-flex-column">
+                              <div class="table-responsive">
+                              <table id="mytable" class="table table-hover">
+                                  <!-- <h4>Teaching Experience</h2> <span> <button id="add-btn" style="margin-left: 960px; margin-top: -60px;"
+                                              class="btn btn-primary"><i class="bi bi-plus-circle "></i></button></span> -->    
+                                  <div class="d-flex justify-content-end mx-3">
+                                      <button id="table-add-btn" class="btn btn-primary bi bi-plus-circle"></button>
+                                  </div>
+                      
+                                  <thead>
+                                      <tr>
+                                          <th>University</th>
+                                          <th>Subject</th>
+                                          <th>Years of Experience</th>
+                                          <th>From</th>
+                                          <th>to</th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody id="table-body">
+                                      <tr>
+                                          <td>
+                                              <input type="text" name="university" class="university">
+                                          </td>
+                                          <td>
+                                              <input type="text" name="subject" class="subject">
+                                          </td>
+                                          <td>
+                                              <input type="text" name="experience" class="experience">
+                                          </td>
+                                          <td>
+                                              <input type="date" name="from-date" class="from-date">
+                                          </td>
+                                          <td>
+                                              <input type="date" name="to-date" class="to-date">
+                                          </td>
+                                          <td>
+                                              <input type="hidden">
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                    
+                          <!-- Modal footer -->
+                          <div class="modal-footer">
+                            <button type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Submit</button>
+                          </div>
+                    
+                        </div>
+                      </div>
+                    </div>  
                                       <div class="form-preview">
                         <div class="personal-preview">
                           <div class="d-flex">
                             <h3>Personal Information</h3>
                             <div class="justify-content-end">
-                              <i class="fa-solid fa-pen-to-square" style="color: blue"></i>
+                              <i class="edit-icon fa-solid fa-pen-to-square" style="color: blue"></i>
                             </div>
                           </div>
                           <div class="d-flex justify-content-between">
@@ -565,7 +654,7 @@
                                 <td>\${data.facultyExperienceList[i].startDate}\</td>
                                 <td>\${data.facultyExperienceList[i].endDate}\</td>
                                 <td>
-                                     <i class="fa-solid fa-pen-to-square" style="color: blue;"></i>
+                                     <i class="row-add-button fa-solid fa-pen-to-square" style="color: blue;"></i>
                                  </td>
                             <tr>   
                   `
@@ -591,7 +680,7 @@
             })
           })
 
-          $(document).on('click','#add-btn', function () {
+          $(document).on('click','#table-add-btn', function () {
             console.log("clicked")
             let table = `
                     <tr>
@@ -625,10 +714,14 @@
                 // $(this).parent().parent().remove()
             }
         })
-    
-      $(document).on("click", ".ubaid", function () {
-        $("#staticBackdrop").modal("toggle");
-      });
+      
+        $(document).on("click", ".edit-icon", function () {
+          $("#staticBackdrop").modal("toggle");
+        });
+
+        $(document).on("click", ".row-add-button", function () {
+          $("#myModal2").modal("toggle");
+        })
         })
       </script>
       <!-- <script src="/views/faculty.js"></script> -->
