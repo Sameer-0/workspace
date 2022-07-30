@@ -22,8 +22,9 @@
 
           <div class="input-name">
             <label for="password">password</label>
-            <span id="password-message" class="error"></span> <br /><input type="text" id="password" class="password"
-              name="password" />
+            <span id="password-message" class="error"></span> <br /><input type="password" id="password" class="password"
+              name="password" /> <br>
+              <input type="checkbox" id="checkbox" value="Show password">
           </div>
 
           <div class="button1">
@@ -37,6 +38,19 @@
           <button id="login-btn" type="button">Register</button>
         </a>
       </div>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        $('#checkbox').on('click',function(){
+
+          if ($(this).is(':checked')) {
+            
+            $('#password').attr('type','text')
+          } else{
+          $('#password').attr('type','password')
+          }
+          
+        })
+      </script>
     </body>
 
     </html>

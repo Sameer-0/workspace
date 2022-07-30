@@ -302,7 +302,6 @@
           })
 
           $(document).on('click', '#add-btn', function () {
-            let count = 1
             console.log("clicked")
             let table = `
             <tr>
@@ -360,13 +359,6 @@
               contentType: 'application/json',
               data: JSON.stringify(expArr),
               success: function (data) {
-
-                // console.log(typeof (data))
-                // console.log(data)
-                // console.log("DATA:::::::::::::", data.facultyDetailsJson.name)
-                // console.log("DATA:::::::::::::", data.facultyExperienceList)
-                // let facultyPersonalDetails = JSON.parse(data.facultyDetailsJson)
-                // let facultyExperience = JSON.parse(data.facultyExperienceList)
 
                 let previewForm = `
                                     <!-- Modal -->
@@ -477,8 +469,6 @@
                           </div>
                         </div>
 
-
-
                                           <div class="modal fade modal-xl"
                           id="myModal2"  
                           data-bs-backdrop="static"
@@ -501,12 +491,7 @@
                           <!-- Modal body -->
                           <div class="modal-body d-flex-column">
                               <div class="table-responsive">
-                              <table id="mytable" class="table table-hover">
-                                  <!-- <h4>Teaching Experience</h2> <span> <button id="add-btn" style="margin-left: 960px; margin-top: -60px;"
-                                              class="btn btn-primary"><i class="bi bi-plus-circle "></i></button></span> -->    
-                                  <div class="d-flex justify-content-end mx-3">
-                                      <button id="table-add-btn" class="btn btn-primary bi bi-plus-circle"></button>
-                                  </div>
+                              <table id="modal-table" class="table table-hover">
                       
                                   <thead>
                                       <tr>
@@ -518,7 +503,7 @@
                                           <th>Action</th>
                                       </tr>
                                   </thead>
-                                  <tbody id="table-body">
+                                  <tbody id="modal-table-body">
                                       <tr>
                                           <td>
                                               <input type="text" name="university" class="university">
@@ -628,7 +613,12 @@
 
                         <div class="experience-preview">
                           <div class="table-responsive">
+                            <div class="d-flex">
                             <h5>Teaching Experience:</h5>
+                            <div class="justify-content-end mx-3">
+                                      <button id="experience-add-btn" class="btn btn-primary bi bi-plus-circle"></button>
+                                  </div>
+                                  </div>
                             <table
                               class="table-display table table-bordered experience-details"
                               id="teachingDetails-table"
@@ -641,7 +631,7 @@
                                 <th>To</th>
                                 <th>Edit</th>
                               </thead>
-                              <tbody>
+                              <tbody id="preview-table-body">
                 `
                       console.log(data.facultyExperienceList)
                       console.log(data.facultyExperienceList.length)
@@ -655,6 +645,9 @@
                                 <td>\${data.facultyExperienceList[i].endDate}\</td>
                                 <td>
                                      <i class="row-add-button fa-solid fa-pen-to-square" style="color: blue;"></i>
+                                     <span>
+                                      <button class="delete-btn btn btn-danger bi bi-trash"></button>  
+                                    </span>
                                  </td>
                             <tr>   
                   `
@@ -680,7 +673,7 @@
             })
           })
 
-          $(document).on('click','#table-add-btn', function () {
+          $(document).on('click','#experience-add-btn', function () {
             console.log("clicked")
             let table = `
                     <tr>
@@ -704,10 +697,10 @@
                         </td>
                     </tr>
             `
-            $('#table-body').append(table)
+            $('#preview-table-body').append(table)
         })
 
-        $('#mytable').on('click', '.delete-btn', function () {
+        $('#teachingDetails-table').on('click', '.delete-btn', function () {
             let x = confirm("Do you really want to delete this row?")
             if (x) {
                 $(this).closest('tr').remove()
