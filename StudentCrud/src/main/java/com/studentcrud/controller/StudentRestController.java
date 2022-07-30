@@ -31,11 +31,6 @@ public class StudentRestController {
     @Autowired
     Gson gson;
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "hello";
-    }
-
     @PostMapping("/experience-submission")
     @ResponseBody
     public JSONObject experienceSubmission(@RequestBody String jsonString, HttpSession httpSession,
