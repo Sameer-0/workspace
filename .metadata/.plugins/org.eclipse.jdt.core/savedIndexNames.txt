@@ -37,7 +37,6 @@ INDEX VERSION 1.131+C:\Users\samee\OneDrive\Desktop\workspace\.metadata\.plugins
 3592295916.index
 1611017067.index
 2398954987.index
-2477674374.index
 2744568891.index
 2506735169.index
 184275185.index
