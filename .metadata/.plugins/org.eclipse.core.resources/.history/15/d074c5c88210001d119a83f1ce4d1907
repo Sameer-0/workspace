@@ -83,6 +83,13 @@
 			<artifactId>jstl</artifactId>
 		</dependency>
 	</dependencies>
+	<!-- https://mvnrepository.com/artifact/clojure-interop/java.awt -->
+	<dependency>
+		<groupId>clojure-interop</groupId>
+		<artifactId>java.awt</artifactId>
+		<version>1.0.2</version>
+	</dependency>
+
 	<build>
 		<plugins>
 			<plugin>
