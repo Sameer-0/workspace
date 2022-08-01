@@ -32,4 +32,6 @@ public interface StudentService {
 	FacultyDetails getFacultyDetails(int studentNo);
 
 	List<FacultyExperience> getFacultyExperience(int studentNo);
+
+	public String deleteFacultyExperienceRowById(int id);
 }

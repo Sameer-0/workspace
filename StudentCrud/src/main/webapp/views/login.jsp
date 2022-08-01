@@ -24,7 +24,7 @@
             <label for="password">password</label>
             <span id="password-message" class="error"></span> <br /><input type="password" id="password" class="password"
               name="password" /> <br>
-              <input type="checkbox" id="checkbox" value="Show password">
+              <input type="checkbox" id="checkbox" name="checkbox" value="Show password"><label for="checkbox">Show password?</label>
           </div>
 
           <div class="button1">
