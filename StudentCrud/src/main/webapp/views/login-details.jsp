@@ -390,11 +390,11 @@
                                   <div class="row">
                                       <div class="col-sm-12 col-md-6 col-lg-6">
                                         <label for="image">Passport Size Photo</label><span class="error"></span><br />
-                                        <input accept="image/jpeg, image/jpg, image/png" type="file" class="image" name="image" id="image" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
+                                        <input accept="image/jpeg, image/jpg, image/png" type="file" class="image" name="image" id="image" 
+                                        onchange="document.getElementById('faculty-modal-image').src = window.URL.createObjectURL(this.files[0])">
                                       </div>
                                       <div class="col-sm-12 col-md-6 col-sm-6">
                                         <img id="faculty-modal-image" alt="your image" src="" width="100" height="100" style="border: 1px solid #ced4da; margin-left:100px;"/>
-
                                       </div>
                                   </div>
                               </div>
@@ -487,19 +487,19 @@
                                   <tbody id="modal-table-body">
                                       <tr>
                                           <td>
-                                              <input type="text" name="university" class="university">
+                                              <input type="text" name="university" class="modal-university">
                                           </td>
                                           <td>
-                                              <input type="text" name="subject" class="subject">
+                                              <input type="text" name="subject" class="modal-subject">
                                           </td>
                                           <td>
-                                              <input type="text" name="experience" class="experience">
+                                              <input type="text" name="experience" class="modal-experience">
                                           </td>
                                           <td>
-                                              <input type="date" name="from-date" class="from-date">
+                                              <input type="date" name="from-date" class="modal-from-date">
                                           </td>
                                           <td>
-                                              <input type="date" name="to-date" class="to-date">
+                                              <input type="date" name="to-date" class="modal-to-date">
                                           </td>
                                           <td>
                                               <input type="hidden">
@@ -515,7 +515,7 @@
                             <button type="button"
                                 class="btn btn-secondary"
                                 data-bs-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Submit</button>
+                              <button type="button" class="faculty-experience-modal-submit btn btn-primary">Submit</button>
                           </div>
                     
                         </div>
@@ -591,11 +591,11 @@
                 for (let i = 0; i < data.facultyExperienceList.length; i++) {
                   previewForm += `
                             <tr>
-                                <td>\${data.facultyExperienceList[i].university}\</td>
-                                <td>\${data.facultyExperienceList[i].subject}\</td>
-                                <td>\${data.facultyExperienceList[i].yearsOfExperience}\</td>
-                                <td>\${data.facultyExperienceList[i].startDate}\</td>
-                                <td>\${data.facultyExperienceList[i].endDate}\</td>
+                                <td><input type="text" readonly value="\${data.facultyExperienceList[i].university}\" class="faculty-preview-university"></td>
+                                <td><input type="text" readonly value="\${data.facultyExperienceList[i].subject}\" class="faculty-preview-subject"></td>
+                                <td><input type="text" readonly value="\${data.facultyExperienceList[i].yearsOfExperience}\" class="faculty-preview-experience"></td>
+                                <td><input type="text" readonly value="\${data.facultyExperienceList[i].startDate}\" class="faculty-preview-from-date"></td>
+                                <td><input type="text" readonly value="\${data.facultyExperienceList[i].endDate}\" class="faculty-preview-to-date"></td>
                                 <td>
                                   <button  class="row-edit-button btn btn-primary fa-solid fa-pen-to-square"></button>
                                      <span>
@@ -646,10 +646,7 @@
                             <input type="date" name="to-date" class="to-date">
                         </td>
                         <td>
-                          <button  class="row-edit-button btn btn-primary fa-solid fa-pen-to-square"></button>
-                                     <span>
-                                      <button class="preview-delete-btn btn btn-danger bi bi-trash"></button>  
-                                    </span>
+                             <button name="delete-btn-new" class="preview-delete-btn btn btn-danger bi bi-trash"></button>  
                         </td>
                     </tr>
             `
@@ -660,6 +657,12 @@
             let row =  $(this).closest('tr');
             let x = confirm("Do you really want to delete this row?")
             if (x) {
+
+              if(this.name != null) {
+
+                row.remove()
+                return;
+              }
               let DeletingId = this.id
               $.ajax({
 
@@ -684,8 +687,8 @@
 
            // Pushing Data to Modal Form
 
-           let a = $('#faculty-details-image').attr('src')
-          document.getElementById('faculty-modal-image').src=a;
+           let facultyDetailsImage = $('#faculty-details-image').attr('src')
+          document.getElementById('faculty-modal-image').src=facultyDetailsImage;
 
            let facultyDetailsName = $('#faculty-details-name').val()
            $('#faculty-modal-name').val(facultyDetailsName)
@@ -705,13 +708,13 @@
            $("#staticBackdrop").modal("toggle");
         });
 
-        $(document).on("click", ".row-edit-button", function () {
-          $("#myModal2").modal("toggle");
-        })
-
         $(document).on('click','#faculty-modal-submit',function(){
 
           // pushing data from modal form to previw Form
+
+          let modalImage = $('#faculty-modal-image').attr('src')
+          document.getElementById('faculty-details-image').src= modalImage;
+
           let modalName = $('#faculty-modal-name').val()
           $('#faculty-details-name').val(modalName)
 
@@ -727,9 +730,39 @@
           let modalPan = $('#faculty-modal-pan').val()
           $('#faculty-details-pan').val(modalPan)
         })
+
+        
+        $(document).on("click", ".row-edit-button", function () {
+
+          $tr= $(this).closest('tr')
+
+          let previewUniversity = $tr.find('.faculty-preview-university').val()
+          $('.modal-university').val(previewUniversity)
+
+          let previewSubject = $tr.find('.faculty-preview-subject').val()
+          $('.modal-subject').val(previewSubject)
+
+          let previewExperience = $tr.find('.faculty-preview-experience').val()
+          $('.modal-experience').val(previewExperience)
+
+          let previewFromDate = $tr.find('.faculty-preview-from-date').val()
+          $('.modal-from-date').val(previewFromDate)
+      
+          let previewTodate = $tr.find('.faculty-preview-to-date').val()
+          $('.modal-to-date').val(previewTodate)
+
+          $("#myModal2").modal("toggle");
+        })
+
+        $(document).on('click', '.faculty-experience-modal-submit', function(){
+          
+          let modalUniversity = $('.modal-university').val()
+          console.log(modalUniversity)
+         
+
+        })
         })
       </script>
       <!-- <script src="/views/faculty.js"></script> -->
     </body>
-
 </html>

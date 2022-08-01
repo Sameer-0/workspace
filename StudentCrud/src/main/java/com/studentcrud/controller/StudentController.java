@@ -148,7 +148,7 @@ public class StudentController {
 
 	@PostMapping("/preview-row-delete")
 	@ResponseBody
-	public String deleteExperienceRow(@RequestBody String idFromJs){
+	public String deleteExperienceRow(@RequestBody String idFromJs) {
 
 		int id = Integer.parseInt(idFromJs);
 
