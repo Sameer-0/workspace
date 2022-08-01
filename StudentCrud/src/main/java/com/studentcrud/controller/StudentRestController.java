@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,17 +28,19 @@ public class StudentRestController {
 
     @PostMapping("/experience-submission")
     @ResponseBody
-    public JSONObject experienceSubmission(@RequestBody String jsonString, HttpSession httpSession, Model model) throws IOException {
+    public JSONObject experienceSubmission(@RequestBody String jsonString, HttpSession httpSession, Model model)
+            throws IOException {
 
         int id = (int) httpSession.getAttribute("studentNo");
 
         ObjectMapper mapper = new ObjectMapper();
         List<FacultyExperience> experience;
         try {
-            experience = mapper.readValue(jsonString, new TypeReference<List<FacultyExperience>>() {});
-			/*
-			 * studentService.saveFacultyExperience(experience, id);
-			 */        } catch (JsonProcessingException e) {
+            experience = mapper.readValue(jsonString, new TypeReference<List<FacultyExperience>>() {
+            });
+            /*
+             * studentService.saveFacultyExperience(experience, id);
+             */ } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 
