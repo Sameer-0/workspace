@@ -29,7 +29,7 @@ public class StudentDao implements StudentService {
 	private static final String insertFacultyExperience = "INSERT INTO faculty_experience(university,subject,yearsOfExperience,startDate,endDate,parentID) VALUES(?,?,?,?,?,?)";
 	private static final String getFacultyDetailsQuery = "SELECT * FROM faculty_details where parentId = ? order by id DESC limit 1";
 	private static final String getfacultyExperienceQuery = "SELECT * FROM faculty_experience where parentId = ?";
-
+	private static final String deleteFacultyExperienceRow = "DELETE FROM faculty_experience WHERE ID = ?";
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -144,5 +144,11 @@ public class StudentDao implements StudentService {
 					rs.getString("yearsOfExperience"), rs.getString("startDate"), rs.getString("endDate"));
 		}, studentNo);
 		return list;
+	}
+
+	@Override
+	public String deleteFacultyExperienceRowById(int id) {
+		jdbcTemplate.update(deleteFacultyExperienceRow,id);
+		return "deleted";
 	}
 }
