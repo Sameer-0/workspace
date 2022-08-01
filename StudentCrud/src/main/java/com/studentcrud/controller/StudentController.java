@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -140,8 +141,18 @@ public class StudentController {
 			e.printStackTrace();
 		}
 		facultyDetails.setPhoto(filename);
-		// studentService.saveFaculty(facultyDetails, id);
+		/* studentService.saveFaculty(facultyDetails, id); */
 
 		return "Success";
+	}
+
+	@PostMapping("/preview-row-delete")
+	@ResponseBody
+	public String deleteExperienceRow(@RequestBody String idFromJs){
+
+		int id = Integer.parseInt(idFromJs);
+
+		studentService.deleteFacultyExperienceRowById(id);
+		return "Deleted successfully";
 	}
 }

@@ -371,7 +371,7 @@
                           aria-labelledby="staticBackdropLabel"
                           aria-hidden="true"
                         >
-                          <div class="modal-dialog modal-dialog-centered modal-l">
+                          <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="staticBackdropLabel">
@@ -385,75 +385,56 @@
                                 ></button>
                               </div>
                               <div class="modal-body">
-                                <form>
-                                <div class="md-form">
-                                  <div id="faculty-form" enctype="multipart/form-data">
-                                    <label for="image">Passport Size Photo</label
-                                    ><span class="error"></span><br />
-                                    <input
-                                      accept="image/jpeg, image/jpg, image/png"
-                                      type="file"
-                                      class="image"
-                                      name="image"
-                                      id="image"
-                                      onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])"
-                                    />
-                                    <img
-                                      id="preview"
-                                      alt="your image"
-                                      width="100"
-                                      height="100"
-                                      class="md-form mb-3"
-                                      style="
-                                        border: 1px solid #ced4da;
-                                        margin-left: 300px;
-                                        margin-top: -60px;
-                                      "
-                                    /><br />
+                              <form >
+                              <div class="form-group p-2 col-md-12 col-sm-6">
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <label for="image">Passport Size Photo</label><span class="error"></span><br />
+                                        <input accept="image/jpeg, image/jpg, image/png" type="file" class="image" name="image" id="image" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">
+                                      </div>
+                                      <div class="col-sm-12 col-md-6 col-sm-6">
+                                        <img id="faculty-modal-image" alt="your image" src="" width="100" height="100" style="border: 1px solid #ced4da; margin-left:100px;"/>
 
-                                    <div class="md-form">
-                                      <input type="text" class="form-control name="name" id="name"
-                                      /><br />
-                                    </div>
-
-                                    <div class="md-form">
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        name="email"
-                                        id="email"
-                                      /><br />
-                                    </div>
-
-                                    <div class="md-form">
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        name="contactNo"
-                                        id="contactNo"
-                                      /><br />
-                                    </div>
-
-                                    <div class="md-form">
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        name="aadhar"
-                                        id="aadhar"
-                                      /><br />
-                                    </div>
-
-                                    <div class="md-form">
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        name="pan"
-                                        id="pan"
-                                      /><br />
-                                    </div>
+                                      </div>
                                   </div>
-                                </div>
-                              </form>
+                              </div>
+                      
+                              <div class="form-group p-2 col-md-12 col-sm-12">
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <label for="name">Name</label>
+                                        <span id="name-message" class="error"></span>
+                                        <input type="text" class="form-control name="name" id="faculty-modal-name">
+                                      </div>
+                                      <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <label for="email">Email</label><span id="email-message" class="error"></span><br />
+                                        <input type="text" class="form-control" name="email" id="faculty-modal-email">
+                                      </div>
+                                  </div>
+                              </div>
+                      
+                              <div class="form-group p-2 col-md-12 col-sm-12">
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <label for="contactNo">Contact No.</label><span id="contact-message" class="error"></span>
+                                        <input type="text" class="form-control" name="contactNo" id="faculty-modal-contactNo" >
+                                      </div>
+                                      <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <label for="aadhar">Aadhar number</label><span id="aadhar-message" class="error"></span><br />
+                                        <input type="text" class="form-control my-0" name="aadhar" id="faculty-modal-aadhar">
+                                      </div>
+                                  </div>
+                              </div>
+                      
+                              <div class="form-group p-2 col-md-12 col-sm-12">
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <label for="pan">Pan number</label><span id="pan-message" class="error"></span><br />
+                                        <input type="text" class="form-control pan" name="pan" id="faculty-modal-pan">
+                                      </div>
+                                  </div>
+                              </div>
+                          </form>
                               </div>
                               <div class="modal-footer">
                                 <button
@@ -463,13 +444,13 @@
                                 >
                                   Close
                                 </button>
-                                <button type="button" class="btn btn-primary">Submit</button>
+                                <button type="button" data-bs-dismiss="modal" id="faculty-modal-submit" class="btn btn-primary">Submit</button>
                               </div>
                             </div>
                           </div>
                         </div>
 
-                                          <div class="modal fade modal-xl"
+                    <div class="modal fade modal-xl"
                           id="myModal2"  
                           data-bs-backdrop="static"
                           data-bs-keyboard="false"
@@ -540,85 +521,57 @@
                         </div>
                       </div>
                     </div>  
-                                      <div class="form-preview">
-                        <div class="personal-preview">
-                          <div class="d-flex">
-                            <h3>Personal Information</h3>
-                            <div class="justify-content-end">
-                              <i class="edit-icon fa-solid fa-pen-to-square" style="color: blue"></i>
+                       <div class="form-preview">
+                    <div class="pb-4 personal-preview">
+                        <form>
+                            <div class="d-flex">
+                                <h3>Personal Information</h3>
+                                <div class="justify-content-end">
+                                    <i class="edit-icon fa-solid fa-pen-to-square" style="color: blue;"></i>
+                                </div>
                             </div>
-                          </div>
-                          <div class="d-flex justify-content-between">
-                            <div class="name d-flex flex-column justify-content-evenly flex-fill">
-                              <div class="border flex-fill">
-                                <h5>Full Name:</h5>
-                                <input
-                                  type="text"
-                                  readonly
-                                  class="form-control-plaintext"
-                                  id="faculty-details-name"
-                                  value="\${data.facultyDetailsJson.name}\"
-                                />
-                              </div>
-                              <div class="border flex-fill">
-                                <h5>Contact no:</h5>
-                                <input
-                                  type="text"
-                                  readonly
-                                  class="form-control-plaintext"
-                                  id="faculty-details-contactNo"
-                                  value="\${data.facultyDetailsJson.contactNo}\"
-                                />
-                              </div>
-                              <div class="border flex-fill">
-                                <h5>Email Id:</h5>
-                                <input
-                                  type="text"
-                                  readonly
-                                  class="form-control-plaintext"
-                                  id="faculty-details-email"
-                                  value="\${data.facultyDetailsJson.email}\"
-                                />
-                              </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="name d-flex flex-column justify-content-evenly flex-fill">
+                                    <div class="flex-fil my-2">Full Name:
+                                        <input type="text" readonly class="form-control" id="faculty-details-name"
+                                        value="\${data.facultyDetailsJson.name}\">
+                                    </div>
+                                    <div class="flex-fill my-2">Contact no.:
+                                        <input type="text" readonly class="form-control" id="faculty-details-contactNo"
+                                        value="\${data.facultyDetailsJson.contactNo}\">
+                                    </div>
+
+                                    <div class="flex-fill my-2">Email Id:
+                                        <input type="text" readonly class="form-control" id="faculty-details-email"
+                                        value="\${data.facultyDetailsJson.email}\">
+                                    </div>
+                                </div>
+                                <div class="photo mx-2 my-4 border border-3" style="width: 130px; height:160px;">
+                                    <img id="faculty-details-image" src="../imagedata/\${data.facultyDetailsJson.photo}\" style="max-width: 100%;">
+                                </div>
                             </div>
-                            <div class="photo border border-3" style="width: 130px; height: 160px">
-                              <img src="../imagedata/\${data.facultyDetailsJson.photo}\" style="max-width: 100%" />
+                            <div class="pan-details my-2">
+                                <div>
+                                    PAN Number:
+                                    <input type="text" readonly class="form-control" id="faculty-details-pan"
+                                    value="\${data.facultyDetailsJson.pan}\">
+                                </div>
                             </div>
-                          </div>
-                          <div class="pan-details">
-                            <div class="border">
-                              <h5>PAN Number:</h5>
-                              <input
-                                type="text"
-                                readonly
-                                class="form-control-plaintext"
-                                id="faculty-details-name"
-                                value="\${data.facultyDetailsJson.pan}\"
-                              />
+                            <div class="aadhar-details my-2">
+                                <div>Aadhar Number:
+                                    <input type="text" readonly class="form-control" id="faculty-details-aadhar"
+                                    value="\${data.facultyDetailsJson.aadhar}\">
+                                </div>
                             </div>
-                          </div>
-                          <div class="aadhar-details">
-                            <div class="border">
-                              <h5>Aadhar Number:</h5>
-                              <input
-                                type="text"
-                                readonly
-                                class="form-control-plaintext"
-                                id="faculty-details-name"
-                                value="\${data.facultyDetailsJson.aadhar}\"
-                              />
-                            </div>
-                          </div>
-                        </div>
+                        </form>
+                    </div>
 
                         <div class="experience-preview">
                           <div class="table-responsive">
-                            <div class="d-flex">
+                            <div class="d-flex justify-content-between">
                             <h5>Teaching Experience:</h5>
-                            <div class="justify-content-end mx-3">
-                                      <button id="experience-add-btn" class="btn btn-primary bi bi-plus-circle"></button>
-                                  </div>
-                                  </div>
+                                      <button id="experience-add-btn" class="m-3 btn btn-primary bi bi-plus-circle"></button>
+                            </div>
                             <table
                               class="table-display table table-bordered experience-details"
                               id="teachingDetails-table"
@@ -629,7 +582,7 @@
                                 <th>Years Of Experience</th>
                                 <th>From</th>
                                 <th>To</th>
-                                <th>Edit</th>
+                                <th>Action</th>
                               </thead>
                               <tbody id="preview-table-body">
                 `
@@ -644,9 +597,9 @@
                                 <td>\${data.facultyExperienceList[i].startDate}\</td>
                                 <td>\${data.facultyExperienceList[i].endDate}\</td>
                                 <td>
-                                     <i class="row-add-button fa-solid fa-pen-to-square" style="color: blue;"></i>
+                                  <button  class="row-edit-button btn btn-primary fa-solid fa-pen-to-square"></button>
                                      <span>
-                                      <button class="delete-btn btn btn-danger bi bi-trash"></button>  
+                                      <button id='\${data.facultyExperienceList[i].id}\' class="preview-delete-btn btn btn-danger bi bi-trash"></button>  
                                     </span>
                                  </td>
                             <tr>   
@@ -692,28 +645,87 @@
                         <td>
                             <input type="date" name="to-date" class="to-date">
                         </td>
-                        <td><button class="delete-btn btn btn-danger bi bi-trash">
-                            </button>
+                        <td>
+                          <button  class="row-edit-button btn btn-primary fa-solid fa-pen-to-square"></button>
+                                     <span>
+                                      <button class="preview-delete-btn btn btn-danger bi bi-trash"></button>  
+                                    </span>
                         </td>
                     </tr>
             `
             $('#preview-table-body').append(table)
         })
 
-        $('#teachingDetails-table').on('click', '.delete-btn', function () {
+        $(document).on('click', '.preview-delete-btn', function () {
+            let row =  $(this).closest('tr');
             let x = confirm("Do you really want to delete this row?")
             if (x) {
-                $(this).closest('tr').remove()
+              let DeletingId = this.id
+              $.ajax({
+
+                url: '/preview-row-delete',
+                type: 'POST',
+                data : DeletingId,
+                contentType: "application/json",
+                success: function(result){
+                  console.log(result)
+                  row.remove()
                 // $(this).parent().parent().remove()
+                }, 
+                error: function(error){
+                  console.log("Error" , error)
+                }
+              })
+              
             }
         })
       
         $(document).on("click", ".edit-icon", function () {
-          $("#staticBackdrop").modal("toggle");
+
+           // Pushing Data to Modal Form
+
+           let a = $('#faculty-details-image').attr('src')
+          document.getElementById('faculty-modal-image').src=a;
+
+           let facultyDetailsName = $('#faculty-details-name').val()
+           $('#faculty-modal-name').val(facultyDetailsName)
+
+           let facultyDetailsEmail = $('#faculty-details-email').val()
+           $('#faculty-modal-email').val(facultyDetailsEmail)
+
+           let facultyDetailsContactNo = $('#faculty-details-contactNo').val()
+           $('#faculty-modal-contactNo').val(facultyDetailsContactNo)
+
+           let facultyDetailsAadhar = $('#faculty-details-aadhar').val()
+           $('#faculty-modal-aadhar').val(facultyDetailsAadhar)
+
+           let facultyDetailsPan = $('#faculty-details-pan').val()
+           $('#faculty-modal-pan').val(facultyDetailsPan)
+
+           $("#staticBackdrop").modal("toggle");
         });
 
-        $(document).on("click", ".row-add-button", function () {
+        $(document).on("click", ".row-edit-button", function () {
           $("#myModal2").modal("toggle");
+        })
+
+        $(document).on('click','#faculty-modal-submit',function(){
+
+          // pushing data from modal form to previw Form
+          let modalName = $('#faculty-modal-name').val()
+          $('#faculty-details-name').val(modalName)
+
+          let modalEmail = $('#faculty-modal-email').val()
+          $('#faculty-details-email').val(modalEmail)
+
+          let modalContactNo = $('#faculty-modal-contactNo').val()
+          $('#faculty-details-contactNo').val(modalContactNo)
+
+          let modalAadhar = $('#faculty-modal-aadhar').val()
+          $('#faculty-details-aadhar').val(modalAadhar)
+
+          let modalPan = $('#faculty-modal-pan').val()
+          $('#faculty-details-pan').val(modalPan)
         })
         })
       </script>
