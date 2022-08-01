@@ -141,7 +141,7 @@ public class StudentController {
 			e.printStackTrace();
 		}
 		facultyDetails.setPhoto(filename);
-		/* studentService.saveFaculty(facultyDetails, id); */
+	    studentService.saveFaculty(facultyDetails, id); 
 
 		return "Success";
 	}

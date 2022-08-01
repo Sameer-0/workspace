@@ -658,11 +658,6 @@
             let x = confirm("Do you really want to delete this row?")
             if (x) {
 
-              if(this.name != null) {
-
-                row.remove()
-                return;
-              }
               let DeletingId = this.id
               $.ajax({
 
@@ -731,10 +726,10 @@
           $('#faculty-details-pan').val(modalPan)
         })
 
-        
+        let $tr = '';
         $(document).on("click", ".row-edit-button", function () {
 
-          $tr= $(this).closest('tr')
+          $tr = $(this).closest('tr')
 
           let previewUniversity = $tr.find('.faculty-preview-university').val()
           $('.modal-university').val(previewUniversity)
@@ -756,10 +751,11 @@
 
         $(document).on('click', '.faculty-experience-modal-submit', function(){
           
+          console.log($tr)
           let modalUniversity = $('.modal-university').val()
-          console.log(modalUniversity)
+          $tr.find('.faculty-preview-university').val(modalUniversity)
          
-
+          $('#myModal2').modal('hide')
         })
         })
       </script>
