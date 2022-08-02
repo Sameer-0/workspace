@@ -34,16 +34,12 @@
       </div>
 
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
-        crossorigin="anonymous"
-      ></script>
+        crossorigin="anonymous"></script>
       <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
       <script>
 
@@ -59,7 +55,10 @@
           }
         }
         $(document).ready(function () {
-          $(document).on('click', '#2', function () {
+
+          $(document).on('click', '#2', function (e) {
+
+            e.preventDefault()
             var id = '${id}'
             console.log(id)
             $.ajax({
@@ -79,8 +78,8 @@
                         <th>Student No</th>
                     </tr>
                 </thead>
-                <tbody>
-                `;
+                <tbody>`
+                
                 response.forEach(element => {
 
                   table += `<tr><td>\${element.id}</td>\<td>\${element.name}\</td>\<td>\${element.email}\</td>\<td>\${element.studentNo}\</td></tr>`
@@ -95,7 +94,9 @@
             })
           })
 
-          $(document).on('click', '#4', function () {
+          $(document).on('click', '#4', function (e) {
+
+            e.preventDefault()
             var id = '${id}'
             $.ajax({
               url: '/view-student',
@@ -140,7 +141,9 @@
             })
           })
 
-          $(document).on('click', '#3', function () {
+          $(document).on('click', '#3', function (e) {
+
+            e.preventDefault()
             let confirmDelete = confirm('Are you sure you want to delete your account?');
             if (confirmDelete) {
               console.log("Entered")
@@ -166,7 +169,9 @@
             }
           })
 
-          $(document).on('click', '#6', function () {
+          $(document).on('click', '#6', function (e) {
+
+            e.preventDefault()
             console.log("Entered")
             $.ajax({
               url: '/logout-student',
@@ -187,8 +192,9 @@
             })
           })
 
-          $(document).on('click', '#5', function () {
+          $(document).on('click', '#5', function (e) {
 
+            e.preventDefault()
             console.log('Entered')
             let form = `
             <div class="container" style="max-width:600px;">
@@ -219,8 +225,8 @@
                       <input type="submit" id="next-button" class="button" value="Next" />
                     </div>
                 </div>
-            </div>
-            `
+            </div>`
+            
             $('#main-area').html(form)
 
           })
@@ -291,8 +297,8 @@
                           <button id="experience-submit" class="btn btn-success">Submit</button>
                       </div>
                   </div>
-                </div>
-                `
+                </div>`
+                
                 $('#main-area').html(message)
               },
               error: function (error) {
@@ -301,7 +307,9 @@
             })
           })
 
-          $(document).on('click', '#add-btn', function () {
+          $(document).on('click', '#add-btn', function (e) {
+
+            e.preventDefault()
             console.log("clicked")
             let table = `
             <tr>
@@ -323,12 +331,14 @@
               <td>
                 <button class="delete-btn btn btn-danger bi bi-trash"></button>
               </td>
-          </tr>
-            `
+          </tr>`
+
             $('#table-body').append(table)
           })
 
-          $(document).on('click', '.delete-btn', function () {
+          $(document).on('click', '.delete-btn', function (e) {
+
+            e.preventDefault()
             let confirmDelete = confirm("Do you really want to delete this row?")
             if (confirmDelete) {
               $(this).closest('tr').remove()
@@ -385,12 +395,12 @@
                                 ></button>
                               </div>
                               <div class="modal-body">
-                              <form >
+                              <form id= "modal-form" enctype="multipart/form-data">
                               <div class="form-group p-2 col-md-12 col-sm-6">
                                   <div class="row">
                                       <div class="col-sm-12 col-md-6 col-lg-6">
                                         <label for="image">Passport Size Photo</label><span class="error"></span><br />
-                                        <input accept="image/jpeg, image/jpg, image/png" type="file" class="image" name="image" id="image" 
+                                        <input accept="image/jpeg, image/jpg, image/png" type="file" class="image" name="image" id="faculty-modal-input-image" 
                                         onchange="document.getElementById('faculty-modal-image').src = window.URL.createObjectURL(this.files[0])">
                                       </div>
                                       <div class="col-sm-12 col-md-6 col-sm-6">
@@ -444,7 +454,7 @@
                                 >
                                   Close
                                 </button>
-                                <button type="button" data-bs-dismiss="modal" id="faculty-modal-submit" class="btn btn-primary">Submit</button>
+                                <button type="button" id="faculty-modal-submit" class="btn btn-primary">Submit</button>
                               </div>
                             </div>
                           </div>
@@ -523,7 +533,7 @@
                     </div>  
                        <div class="form-preview">
                     <div class="pb-4 personal-preview">
-                        <form>
+                        <form id="preview-form">
                             <div class="d-flex">
                                 <h3>Personal Information</h3>
                                 <div class="justify-content-end">
@@ -584,10 +594,10 @@
                                 <th>To</th>
                                 <th>Action</th>
                               </thead>
-                              <tbody id="preview-table-body">
-                `
-                      console.log(data.facultyExperienceList)
-                      console.log(data.facultyExperienceList.length)
+                              <tbody id="preview-table-body">`
+                
+                console.log(data.facultyExperienceList)
+                console.log(data.facultyExperienceList.length)
                 for (let i = 0; i < data.facultyExperienceList.length; i++) {
                   previewForm += `
                             <tr>
@@ -602,8 +612,7 @@
                                       <button id='\${data.facultyExperienceList[i].id}\' class="preview-delete-btn btn btn-danger bi bi-trash"></button>  
                                     </span>
                                  </td>
-                            <tr>   
-                  `
+                            <tr>`
                 }
 
                 previewForm += `         
@@ -613,7 +622,7 @@
                               </div>
                           </div>
                           <footer class="mt-5">
-                              <button class="btn btn-success" style="display: block; margin: auto; width: 50%;">Submit</button>
+                              <button class="btn btn-success" id="faculty-preview-submit" style="display: block; margin: auto; width: 50%;">Submit</button>
                           </footer>
                           </div>
                           </div>`
@@ -626,7 +635,9 @@
             })
           })
 
-          $(document).on('click','#experience-add-btn', function () {
+          $(document).on('click', '#experience-add-btn', function (e) {
+
+            e.preventDefault()
             console.log("clicked")
             let table = `
                     <tr>
@@ -646,119 +657,153 @@
                             <input type="date" name="to-date" class="to-date">
                         </td>
                         <td>
-                             <button name="delete-btn-new" class="preview-delete-btn btn btn-danger bi bi-trash"></button>  
+                             <button class="new-preview-delete btn btn-danger bi bi-trash"></button>  
                         </td>
                     </tr>
             `
             $('#preview-table-body').append(table)
-        })
+          })
 
-        $(document).on('click', '.preview-delete-btn', function () {
-            let row =  $(this).closest('tr');
-            let x = confirm("Do you really want to delete this row?")
-            if (x) {
+          $(document).on('click', '.new-preview-delete', function (e) {
+
+            e.preventDefault()
+            let confirmDelete = confirm("Do you really want to delete this row?");
+
+            if (confirmDelete) {
+              $(this).closest('tr').remove()
+            }
+          })
+
+          $(document).on('click', '.preview-delete-btn', function (e) {
+
+            e.preventDefault()
+            let row = $(this).closest('tr');
+            let confirmDelete = confirm("Do you really want to delete this row?")
+            if (confirmDelete) {
 
               let DeletingId = this.id
               $.ajax({
 
                 url: '/preview-row-delete',
                 type: 'POST',
-                data : DeletingId,
+                data: DeletingId,
                 contentType: "application/json",
-                success: function(result){
+                success: function (result) {
                   console.log(result)
                   row.remove()
-                // $(this).parent().parent().remove()
-                }, 
-                error: function(error){
-                  console.log("Error" , error)
+                  // $(this).parent().parent().remove()
+                },
+                error: function (error) {
+                  console.log("Error", error)
                 }
               })
-              
+
             }
-        })
-      
-        $(document).on("click", ".edit-icon", function () {
+          })
 
-           // Pushing Data to Modal Form
+          $(document).on("click", ".edit-icon", function (e) {
 
-           let facultyDetailsImage = $('#faculty-details-image').attr('src')
-          document.getElementById('faculty-modal-image').src=facultyDetailsImage;
+            e.preventDefault()
+            // Pushing Data to Modal Form
 
-           let facultyDetailsName = $('#faculty-details-name').val()
-           $('#faculty-modal-name').val(facultyDetailsName)
+            let facultyDetailsImage = $('#faculty-details-image').attr('src')
+            document.getElementById('faculty-modal-image').src = facultyDetailsImage;
 
-           let facultyDetailsEmail = $('#faculty-details-email').val()
-           $('#faculty-modal-email').val(facultyDetailsEmail)
+            let facultyDetailsName = $('#faculty-details-name').val()
+            $('#faculty-modal-name').val(facultyDetailsName)
 
-           let facultyDetailsContactNo = $('#faculty-details-contactNo').val()
-           $('#faculty-modal-contactNo').val(facultyDetailsContactNo)
+            let facultyDetailsEmail = $('#faculty-details-email').val()
+            $('#faculty-modal-email').val(facultyDetailsEmail)
 
-           let facultyDetailsAadhar = $('#faculty-details-aadhar').val()
-           $('#faculty-modal-aadhar').val(facultyDetailsAadhar)
+            let facultyDetailsContactNo = $('#faculty-details-contactNo').val()
+            $('#faculty-modal-contactNo').val(facultyDetailsContactNo)
 
-           let facultyDetailsPan = $('#faculty-details-pan').val()
-           $('#faculty-modal-pan').val(facultyDetailsPan)
+            let facultyDetailsAadhar = $('#faculty-details-aadhar').val()
+            $('#faculty-modal-aadhar').val(facultyDetailsAadhar)
 
-           $("#staticBackdrop").modal("toggle");
-        });
+            let facultyDetailsPan = $('#faculty-details-pan').val()
+            $('#faculty-modal-pan').val(facultyDetailsPan)
 
-        $(document).on('click','#faculty-modal-submit',function(){
+            $("#staticBackdrop").modal("toggle");
+          });
 
-          // pushing data from modal form to previw Form
+          $(document).on('click', '#faculty-modal-submit', function (e) {
 
-          let modalImage = $('#faculty-modal-image').attr('src')
-          document.getElementById('faculty-details-image').src= modalImage;
+            e.preventDefault()
+            
+            // pushing data from modal form to previw Form
 
-          let modalName = $('#faculty-modal-name').val()
-          $('#faculty-details-name').val(modalName)
+            let modalImage = $('#faculty-modal-image').attr('src')
+            document.getElementById('faculty-details-image').src = modalImage;
 
-          let modalEmail = $('#faculty-modal-email').val()
-          $('#faculty-details-email').val(modalEmail)
+            let modalName = $('#faculty-modal-name').val()
+            $('#faculty-details-name').val(modalName)
 
-          let modalContactNo = $('#faculty-modal-contactNo').val()
-          $('#faculty-details-contactNo').val(modalContactNo)
+            let modalEmail = $('#faculty-modal-email').val()
+            $('#faculty-details-email').val(modalEmail)
 
-          let modalAadhar = $('#faculty-modal-aadhar').val()
-          $('#faculty-details-aadhar').val(modalAadhar)
+            let modalContactNo = $('#faculty-modal-contactNo').val()
+            $('#faculty-details-contactNo').val(modalContactNo)
 
-          let modalPan = $('#faculty-modal-pan').val()
-          $('#faculty-details-pan').val(modalPan)
-        })
+            let modalAadhar = $('#faculty-modal-aadhar').val()
+            $('#faculty-details-aadhar').val(modalAadhar)
 
-        let $tr = '';
-        $(document).on("click", ".row-edit-button", function () {
+            let modalPan = $('#faculty-modal-pan').val()
+            $('#faculty-details-pan').val(modalPan)
 
-          $tr = $(this).closest('tr')
+            $('#staticBackdrop').modal('hide')
+            
+          })
 
-          let previewUniversity = $tr.find('.faculty-preview-university').val()
-          $('.modal-university').val(previewUniversity)
+          let tRow = '';
+          $(document).on("click", ".row-edit-button", function (e) {
 
-          let previewSubject = $tr.find('.faculty-preview-subject').val()
-          $('.modal-subject').val(previewSubject)
+            e.preventDefault()
 
-          let previewExperience = $tr.find('.faculty-preview-experience').val()
-          $('.modal-experience').val(previewExperience)
+            tRow = $(this).closest('tr')
 
-          let previewFromDate = $tr.find('.faculty-preview-from-date').val()
-          $('.modal-from-date').val(previewFromDate)
-      
-          let previewTodate = $tr.find('.faculty-preview-to-date').val()
-          $('.modal-to-date').val(previewTodate)
+            let previewUniversity = tRow.find('.faculty-preview-university').val()
+            $('.modal-university').val(previewUniversity)
 
-          $("#myModal2").modal("toggle");
-        })
+            let previewSubject = tRow.find('.faculty-preview-subject').val()
+            $('.modal-subject').val(previewSubject)
 
-        $(document).on('click', '.faculty-experience-modal-submit', function(){
-          
-          console.log($tr)
-          let modalUniversity = $('.modal-university').val()
-          $tr.find('.faculty-preview-university').val(modalUniversity)
-         
-          $('#myModal2').modal('hide')
-        })
+            let previewExperience = tRow.find('.faculty-preview-experience').val()
+            $('.modal-experience').val(previewExperience)
+
+            let previewFromDate = tRow.find('.faculty-preview-from-date').val()
+            $('.modal-from-date').val(previewFromDate)
+
+            let previewTodate = tRow.find('.faculty-preview-to-date').val()
+            $('.modal-to-date').val(previewTodate)
+
+            $("#myModal2").modal("toggle");
+          })
+
+          $(document).on('click', '.faculty-experience-modal-submit', function (e) {
+
+            e.preventDefault()
+            console.log(tRow)
+            let modalUniversity = $('.modal-university').val()
+            tRow.find('.faculty-preview-university').val(modalUniversity)
+
+            let modalSubject = $('.modal-subject').val()
+            tRow.find('.faculty-preview-subject').val(modalSubject)
+
+            let modalExperience = $('.modal-experience').val()
+            tRow.find('.faculty-preview-experience').val(modalExperience)
+
+            let modalFromDate = $('.modal-from-date').val()
+            tRow.find('.faculty-preview-from-date').val(modalFromDate)
+
+            let modalToDate = $('.modal-to-date').val()
+            tRow.find('.faculty-preview-to-date').val(modalToDate)
+
+            $('#myModal2').modal('hide')
+          })
         })
       </script>
       <!-- <script src="/views/faculty.js"></script> -->
     </body>
-</html>
+
+    </html>

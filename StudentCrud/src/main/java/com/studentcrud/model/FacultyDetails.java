@@ -3,6 +3,7 @@ package com.studentcrud.model;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FacultyDetails {
+
     private int id;
     private MultipartFile image;
     private String photo;
@@ -14,6 +15,7 @@ public class FacultyDetails {
 
     @Override
     public String toString() {
+
         return "FacultyDetails [aadhar=" + aadhar + ", contactNo=" + contactNo + ", email=" + email + ", id=" + id
                 + ", name=" + name + ", pan=" + pan + "]";
     }

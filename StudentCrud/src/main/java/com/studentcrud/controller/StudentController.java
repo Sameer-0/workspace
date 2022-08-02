@@ -37,18 +37,22 @@ public class StudentController {
 
 	@GetMapping("/register")
 	public String register() {
+
 		return "index";
 	}
 
 	@GetMapping("/login")
 	public String login() {
+
 		return "login";
 	}
 
 	@PostMapping("/student-login")
 	public String StudentInfo(ModelMap model, Student student) {
+
 		studentService.saveStudent(student);
 		model.put("errorMsg", "Registered Successfully, you can now Login !");
+
 		return "redirect:/login";
 	}
 
@@ -67,6 +71,7 @@ public class StudentController {
 			return "redirect:/student-dashboard";
 		}
 		model.addAttribute("errorMsg", "Password is incorrect");
+
 		return "redirect:/login";
 	}
 
@@ -82,20 +87,25 @@ public class StudentController {
 			model.addAttribute("lists", lists);
 			return "login-details";
 		}
+
 		return "redirect:/login";
 	}
 
 	@PostMapping("/student-update")
 	public String updateStudent(Student student, Model model) {
+
 		studentService.updateStudent(student);
 		model.addAttribute("id", student.getId());
+
 		List<Menu> lists = studentService.getMenu();
 		model.addAttribute("lists", lists);
+
 		return "login-details";
 	}
 
 	@PostMapping("/delete-student")
 	public Object deleteStudent(@RequestParam String id, Model model) {
+
 		studentService.deleteById(id);
 		return null;
 	}
@@ -119,6 +129,7 @@ public class StudentController {
 
 	@GetMapping("/logout-student")
 	public String logout(Student students, Model model, HttpSession httpSession) {
+
 		String sessionId = (String) httpSession.getAttribute("id");
 		System.out.println(sessionId);
 		httpSession.invalidate();
@@ -141,7 +152,7 @@ public class StudentController {
 			e.printStackTrace();
 		}
 		facultyDetails.setPhoto(filename);
-	    studentService.saveFaculty(facultyDetails, id); 
+		// studentService.saveFaculty(facultyDetails, id);
 
 		return "Success";
 	}

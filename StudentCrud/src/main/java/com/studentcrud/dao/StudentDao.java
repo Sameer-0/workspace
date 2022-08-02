@@ -18,23 +18,13 @@ import com.studentcrud.service.StudentService;
 @Repository
 public class StudentDao implements StudentService {
 
-	private static final String insertStudent = "INSERT INTO STUDENT_PORTAL_FIRST(id,name,email,password) values(?,?,?,?)";
-	private static final String updateStudentById = "UPDATE STUDENT_PORTAL_FIRST SET ID=?,name=?,EMAIL=?,PASSWORD=? WHERE StudentNo=?";
-	private static final String getStudentById = "SELECT * FROM STUDENT_PORTAL_FIRST WHERE ID=?";
-	private static final String deleteStudentById = "DELETE FROM STUDENT_PORTAL_FIRST WHERE ID=?";
-	private static final String getAllStudents = "SELECT * FROM STUDENT_PORTAL_FIRST";
-	private static final String getStudentPassword = "SELECT PASSWORD FROM STUDENT_PORTAL_FIRST WHERE ID=?";
-	private static final String getMenu = "SELECT M2.* FROM MENU M1,MENU M2 WHERE M1.ID=M2.PARENTID ORDER BY ID";
-	private static final String insertFacultyDetails = "INSERT INTO faculty_details(photo,NAME,email,contactNo,aadhar,pan,parentId) VALUES(?,?,?,?,?,?,?);";
-	private static final String insertFacultyExperience = "INSERT INTO faculty_experience(university,subject,yearsOfExperience,startDate,endDate,parentID) VALUES(?,?,?,?,?,?)";
-	private static final String getFacultyDetailsQuery = "SELECT * FROM faculty_details where parentId = ? order by id DESC limit 1";
-	private static final String getfacultyExperienceQuery = "SELECT * FROM faculty_experience where parentId = ?";
-	private static final String deleteFacultyExperienceRow = "DELETE FROM faculty_experience WHERE ID = ?";
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Student saveStudent(Student student) {
+
+		String insertStudent = "INSERT INTO STUDENT_PORTAL_FIRST(id,name,email,password) values(?,?,?,?)";
 		jdbcTemplate.update(insertStudent, student.getId(), student.getName(), student.getEmail(),
 				student.getPassword());
 		return student;
@@ -42,6 +32,8 @@ public class StudentDao implements StudentService {
 
 	@Override
 	public Student updateStudent(Student student) {
+
+		String updateStudentById = "UPDATE STUDENT_PORTAL_FIRST SET ID=?,name=?,EMAIL=?,PASSWORD=? WHERE StudentNo=?";
 		jdbcTemplate.update(updateStudentById, student.getId(), student.getName(), student.getEmail(),
 				student.getPassword(), student.getStudentNo());
 		return student;
@@ -50,7 +42,10 @@ public class StudentDao implements StudentService {
 	@Override
 	public Student getById(String id) {
 
+		String getStudentById = "SELECT * FROM STUDENT_PORTAL_FIRST WHERE ID=?";
+
 		return jdbcTemplate.queryForObject(getStudentById, (rs, rownum) -> {
+
 			return new Student(rs.getString("id"), rs.getString("name"), rs.getString("email"),
 					rs.getString("password"), rs.getInt("studentNo"));
 		}, id);
@@ -58,12 +53,17 @@ public class StudentDao implements StudentService {
 
 	@Override
 	public String deleteById(String id) {
+
+		String deleteStudentById = "DELETE FROM STUDENT_PORTAL_FIRST WHERE ID=?";
+
 		jdbcTemplate.update(deleteStudentById, id);
 		return "Student got deleted with id " + id;
 	}
 
 	@Override
 	public List<Student> allStudents() {
+
+		String getAllStudents = "SELECT * FROM STUDENT_PORTAL_FIRST";
 
 		return jdbcTemplate.query(getAllStudents, (rs, rownum) -> {
 			return new Student(rs.getString("id"), rs.getString("name"), rs.getString("email"),
@@ -72,6 +72,8 @@ public class StudentDao implements StudentService {
 	}
 
 	public String getStudentPassword(String id) {
+
+		String getStudentPassword = "SELECT PASSWORD FROM STUDENT_PORTAL_FIRST WHERE ID=?";
 
 		List<String> password = jdbcTemplate.queryForList(getStudentPassword, String.class, id);
 
@@ -83,14 +85,22 @@ public class StudentDao implements StudentService {
 	}
 
 	public List<Menu> getMenu() {
+
+		String getMenu = "SELECT M2.* FROM MENU M1,MENU M2 WHERE M1.ID=M2.PARENTID ORDER BY ID";
+
 		return jdbcTemplate.query(getMenu, (rs, rownum) -> {
+
 			return new Menu(rs.getInt("id"), rs.getString("name"), rs.getString("parentId"), rs.getString("link"));
 		});
 	}
 
 	@Override
 	public List<Student> getListById(String id) {
+
+		String getStudentById = "SELECT * FROM STUDENT_PORTAL_FIRST WHERE ID=?";
+
 		return jdbcTemplate.query(getStudentById, (rs, rownum) -> {
+
 			return new Student(rs.getString("id"), rs.getString("name"), rs.getString("email"),
 					rs.getString("password"), rs.getInt("studentNo"));
 		}, id);
@@ -99,6 +109,8 @@ public class StudentDao implements StudentService {
 	@Override
 	public FacultyDetails saveFaculty(FacultyDetails details, int studentNo) {
 
+		String insertFacultyDetails = "INSERT INTO faculty_details(photo,NAME,email,contactNo,aadhar,pan,parentId) VALUES(?,?,?,?,?,?,?);";
+
 		jdbcTemplate.update(insertFacultyDetails, details.getPhoto(), details.getName(), details.getEmail(),
 				details.getContactNo(), details.getAadhar(), details.getPan(), studentNo);
 		return details;
@@ -106,11 +118,16 @@ public class StudentDao implements StudentService {
 
 	@Override
 	public void saveFacultyExperience(List<FacultyExperience> facultyExperience, int studentNo) {
+
+		String insertFacultyExperience = "INSERT INTO faculty_experience(university,subject,yearsOfExperience,startDate,endDate,parentID) VALUES(?,?,?,?,?,?)";
+
 		jdbcTemplate.batchUpdate(insertFacultyExperience, new BatchPreparedStatementSetter() {
 
 			@Override
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
+
 				FacultyExperience experience = facultyExperience.get(i);
+
 				ps.setString(1, experience.getUniversity());
 				ps.setString(2, experience.getSubject());
 				ps.setString(3, experience.getYearsOfExperience());
@@ -131,7 +148,11 @@ public class StudentDao implements StudentService {
 
 	@Override
 	public FacultyDetails getFacultyDetails(int studentNo) {
+
+		String getFacultyDetailsQuery = "SELECT * FROM faculty_details where parentId = ? order by id DESC limit 1";
+
 		return jdbcTemplate.queryForObject(getFacultyDetailsQuery, (rs, rownum) -> {
+
 			return new FacultyDetails(rs.getInt("id"), rs.getString("photo"), rs.getString("name"),
 					rs.getString("email"), rs.getString("contactNo"), rs.getString("aadhar"), rs.getString("pan"));
 		}, studentNo);
@@ -139,6 +160,9 @@ public class StudentDao implements StudentService {
 
 	@Override
 	public List<FacultyExperience> getFacultyExperience(int studentNo) {
+
+		String getfacultyExperienceQuery = "SELECT * FROM faculty_experience where parentId = ?";
+
 		List<FacultyExperience> list = jdbcTemplate.query(getfacultyExperienceQuery, (rs, rownum) -> {
 			return new FacultyExperience(rs.getInt("id"), rs.getString("university"), rs.getString("subject"),
 					rs.getString("yearsOfExperience"), rs.getString("startDate"), rs.getString("endDate"));
@@ -148,7 +172,10 @@ public class StudentDao implements StudentService {
 
 	@Override
 	public String deleteFacultyExperienceRowById(int id) {
-		jdbcTemplate.update(deleteFacultyExperienceRow,id);
+
+		String deleteFacultyExperienceRow = "DELETE FROM faculty_experience WHERE ID = ?";
+
+		jdbcTemplate.update(deleteFacultyExperienceRow, id);
 		return "deleted";
 	}
 }

@@ -38,9 +38,9 @@ public class StudentRestController {
         try {
             experience = mapper.readValue(jsonString, new TypeReference<List<FacultyExperience>>() {
             });
-            
-              studentService.saveFacultyExperience(experience, id);
-             } catch (JsonProcessingException e) {
+
+            // studentService.saveFacultyExperience(experience, id);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 
